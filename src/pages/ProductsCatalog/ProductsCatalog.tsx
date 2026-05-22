@@ -110,23 +110,11 @@ export default function ProductsCatalog() {
   return (
     <>
       {/* Breadcrumb */}
-      <div className='mb-6 py-15 px-25'>
+      <div className='py-10 px-25 flex item-center justify-between'>
         <p className='text-sm text-gray-600'>
           Home / <span className='text-gray-900 font-medium'>Explore Our Products</span>
         </p>
-      </div>
-
-      {/* Main Layout */}
-      <div className='flex gap-8 py-15 px-25'>
-        {/* Sidebar */}
-        <ProductsSidebar filters={filters} onFiltersChange={handleFiltersChange} />
-
-        {/* Products Section */}
-        <div className='flex-1'>
-          {/* Top Bar with Sort */}
-          <div className='flex items-center justify-between mb-6'>
-            <div></div>
-            <select
+         <select
               value={sort}
               onChange={(e) => setSort(e.target.value)}
               className='border border-gray-300 rounded px-4 py-2 text-sm text-gray-700 outline-none hover:border-gray-400'
@@ -136,6 +124,19 @@ export default function ProductsCatalog() {
               <option value='price-high'>Price: High to Low</option>
               <option value='newest'>Newest</option>
             </select>
+      </div>
+
+      {/* Main Layout */}
+      <div className='flex gap-8 pb-15 px-25'>
+        {/* Sidebar */}
+        <ProductsSidebar filters={filters} onFiltersChange={handleFiltersChange} />
+
+        {/* Products Section */}
+        <div className='flex-1'>
+          {/* Top Bar with Sort */}
+          <div className='flex items-center justify-between mb-6'>
+            <div></div>
+           
           </div>
 
           {loading && <Loading />}
