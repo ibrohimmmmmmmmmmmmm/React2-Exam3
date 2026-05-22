@@ -3,6 +3,8 @@ import axios from 'axios'
 import Loading from '../../components/Loading/Loading'
 import ProductsSidebar from './SidebarProducts'
 import { Heart, Eye, ShoppingCart } from 'lucide-react'
+import { useAppDispatch, useAppSelector } from '../../app/hooks'
+import { toggleWishlist } from '../../features/wishlistSlice'
 
 type Product = {
   id: number
@@ -26,6 +28,10 @@ type Filters = {
 }
 
 export default function ProductsCatalog() {
+  const dispatch = useAppDispatch()
+  const wishlistItems = useAppSelector((state) => state.wishlist.items)
+  const wishlistedIds = useMemo(() => new Set(wishlistItems.map((item) => item.id)), [wishlistItems])
+
   const [products, setProducts] = useState<Product[]>([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -148,63 +154,76 @@ export default function ProductsCatalog() {
                 {filteredProducts.length === 0 ? (
                   <p className='col-span-3 text-center text-gray-500 py-8'>No products found.</p>
                 ) : (
-                  filteredProducts.map((p) => (
-                    <div key={p.id} className='relative bg-white border border-gray-200 rounded overflow-hidden group shadow-sm hover:shadow-lg transition-shadow duration-300'>
-                      {/* Image Container - Fixed Height */}
-                      <div className='relative h-56 bg-gray-100 overflow-hidden flex items-center justify-center'>
-                        {p.hasDiscount && p.discountPrice && (
-                          <div className='absolute top-3 left-3 bg-red-500 text-white px-2 py-1 text-xs font-bold rounded z-10'>
-                            -{Math.round(((p.price ?? 0 - p.discountPrice) / (p.price ?? 1)) * 100)}%
-                          </div>
-                        )}
-                        {p.image ? (
-                          <img src={p.image} alt={p.productName} className='max-h-full max-w-full object-cover group-hover:scale-110 transition-transform duration-300' />
-                        ) : (
-                          <span className='text-sm text-gray-500'>No image</span>
-                        )}
-                        
-                        {/* Hover Icons - Appear on Hover */}
-                        <div className='absolute right-3 top-1/2 -translate-y-1/2 flex flex-col gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300'>
-                          <button className='bg-white rounded-full p-2.5 shadow-md hover:bg-red-500 hover:text-white transition-colors duration-200 flex items-center justify-center'>
-                            <Heart size={20} />
-                          </button>
-                          <button className='bg-white rounded-full p-2.5 shadow-md hover:bg-blue-500 hover:text-white transition-colors duration-200 flex items-center justify-center'>
-                            <Eye size={20} />
-                          </button>
-                        </div>
-                      </div>
-
-                      {/* Content Section - Always Visible */}
-                      <div className='p-4'>
-                        <h3 className='font-semibold text-sm text-gray-900 line-clamp-2 mb-2'>
-                          {p.productName ?? 'Product'}
-                        </h3>
-                        {/* Price */}
-                        <div className='flex items-center gap-2 mb-2'>
-                          <span className='font-bold text-red-500 text-lg'>
-                            ${p.discountPrice && p.hasDiscount ? p.discountPrice.toFixed(2) : (p.price ?? 0).toFixed(2)}
-                          </span>
+                  filteredProducts.map((p) => {
+                    const isWishlisted = wishlistedIds.has(p.id);
+                    return (
+                      <div key={p.id} className='relative bg-white border border-gray-200 rounded overflow-hidden group shadow-sm hover:shadow-lg transition-shadow duration-300'>
+                        {/* Image Container - Fixed Height */}
+                        <div className='relative h-56 bg-gray-100 overflow-hidden flex items-center justify-center'>
                           {p.hasDiscount && p.discountPrice && (
-                            <span className='text-xs text-gray-500 line-through'>
-                              ${(p.price ?? 0).toFixed(2)}
-                            </span>
+                            <div className='absolute top-3 left-3 bg-red-500 text-white px-2 py-1 text-xs font-bold rounded z-10'>
+                              -{Math.round(((p.price ?? 0 - p.discountPrice) / (p.price ?? 1)) * 100)}%
+                            </div>
                           )}
+                          {p.image ? (
+                            <img src={p.image} alt={p.productName} className='max-h-full max-w-full object-cover group-hover:scale-110 transition-transform duration-300' />
+                          ) : (
+                            <span className='text-sm text-gray-500'>No image</span>
+                          )}
+                          
+                          {/* Hover Icons - Appear on Hover, or if Wishlisted */}
+                          <div className='absolute right-3 top-1/2 -translate-y-1/2 flex flex-col gap-3 z-10'>
+                            <button 
+                              onClick={(e) => {
+                                e.preventDefault();
+                                dispatch(toggleWishlist(p));
+                              }}
+                              className={`rounded-full p-2.5 shadow-md transition-all duration-200 flex items-center justify-center cursor-pointer ${
+                                isWishlisted 
+                                  ? 'bg-[#DB4444] text-white opacity-100' 
+                                  : 'bg-white text-gray-900 hover:bg-[#DB4444] hover:text-white opacity-0 group-hover:opacity-100'
+                              }`}
+                            >
+                              <Heart size={20} fill={isWishlisted ? "currentColor" : "none"} />
+                            </button>
+                            <button className='bg-white text-gray-900 rounded-full p-2.5 shadow-md hover:bg-blue-500 hover:text-white transition-all duration-200 flex items-center justify-center opacity-0 group-hover:opacity-100 cursor-pointer'>
+                              <Eye size={20} />
+                            </button>
+                          </div>
                         </div>
-                        {/* Rating */}
-                        <div className='flex items-center gap-2'>
-                          {renderStars(p.rating)}
-                          <span className='text-xs text-gray-500'>({p.rating ? Math.round(p.rating * 10) : 0})</span>
-                        </div>
-                      </div>
 
-                      {/* Hover Add To Cart Button - Bottom */}
-                      <div className='px-4 pb-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300'>
-                        <button className='w-full bg-black text-white py-2 font-bold text-sm hover:bg-gray-800 transition-colors duration-200 rounded'>
-                          Add To Cart
-                        </button>
+                        {/* Content Section - Always Visible */}
+                        <div className='p-4'>
+                          <h3 className='font-semibold text-sm text-gray-900 line-clamp-2 mb-2'>
+                            {p.productName ?? 'Product'}
+                          </h3>
+                          {/* Price */}
+                          <div className='flex items-center gap-2 mb-2'>
+                            <span className='font-bold text-red-500 text-lg'>
+                              ${p.discountPrice && p.hasDiscount ? p.discountPrice.toFixed(2) : (p.price ?? 0).toFixed(2)}
+                            </span>
+                            {p.hasDiscount && p.discountPrice && (
+                              <span className='text-xs text-gray-500 line-through'>
+                                ${(p.price ?? 0).toFixed(2)}
+                              </span>
+                            )}
+                          </div>
+                          {/* Rating */}
+                          <div className='flex items-center gap-2'>
+                            {renderStars(p.rating)}
+                            <span className='text-xs text-gray-500'>({p.rating ? Math.round(p.rating * 10) : 0})</span>
+                          </div>
+                        </div>
+
+                        {/* Hover Add To Cart Button - Bottom */}
+                        <div className='px-4 pb-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300'>
+                          <button className='w-full bg-black text-white py-2 font-bold text-sm hover:bg-gray-800 transition-colors duration-200 rounded'>
+                            Add To Cart
+                          </button>
+                        </div>
                       </div>
-                    </div>
-                  ))
+                    );
+                  })
                 )}
               </div>
 

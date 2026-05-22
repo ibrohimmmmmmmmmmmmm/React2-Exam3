@@ -7,3 +7,4 @@ export const CreateAccount = lazy(() => import("../pages/CreateAccount/CreateAcc
 export const SignUp = lazy(() => import("../pages/SignUp/SignUp"));
 export const ProductsCatalog = lazy(() => import("../pages/ProductsCatalog/ProductsCatalog"));
 export const Account = lazy(() => import("../pages/Account/Account"));
+export const Wishlist = lazy(() => import("../pages/Wishlist/Wishlist"));

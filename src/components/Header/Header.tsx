@@ -1,10 +1,11 @@
 import { memo, useState, useEffect } from "react";
-import { Menu, Search, Heart, ShoppingCart, User } from "lucide-react";
+import { Menu, Search, ShoppingCart, User } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import logo from "@/assets/Group 1116606595 (4).png";
 import { getToken } from "../../utils/token";
 import UserDropdown from "./UserDropdown/UserDropdown";
+import HeartComp from "./HeartComp";
 
 const navLinks = [
   { name: "Home", href: "/" },
@@ -97,9 +98,7 @@ const Header = memo(() => {
             <Search size={15} className="absolute right-3.5 top-1/2 -translate-y-1/2 text-neutral-400 pointer-events-none" />
           </div>
 
-          <button className="hidden lg:block p-2 rounded-full hover:bg-neutral-100 transition" aria-label="Wishlist">
-            <Heart size={20} strokeWidth={1.8} />
-          </button>
+          <HeartComp />
 
           <button className="relative p-2 rounded-full hover:bg-neutral-100 transition" aria-label="Cart">
             <ShoppingCart size={20} strokeWidth={1.8} />

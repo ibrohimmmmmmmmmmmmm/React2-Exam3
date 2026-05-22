@@ -17,6 +17,7 @@ import {
   SignUp,
   ProductsCatalog,
   Account,
+  Wishlist,
 } from "./router/router";
 
 
@@ -84,6 +85,14 @@ export default function App() {
           element: (
             <Suspense fallback={<Loading />}>
               <ProductsCatalog />
+            </Suspense>
+          ),
+        },
+        {
+          path: "wishlist",
+          element: (
+            <Suspense fallback={<Loading />}>
+              <Wishlist />
             </Suspense>
           ),
         },
