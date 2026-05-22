@@ -10,8 +10,10 @@ import {
 } from "@/components/ui/dropdown-menu"
 
 import { getToken } from "@/utils/token"
+import { useNavigate } from "react-router-dom"
 
 export default memo(function UserDropdown() {
+  const navigate = useNavigate()
   return (
     <>
       {getToken() && (
@@ -26,7 +28,7 @@ export default memo(function UserDropdown() {
           </DropdownMenuTrigger>
 
           <DropdownMenuContent align="end">
-            <DropdownMenuItem>
+            <DropdownMenuItem onSelect={() => navigate("/account")}>
               <UserIcon className="mr-2 h-4 w-4" />
               Account
             </DropdownMenuItem>

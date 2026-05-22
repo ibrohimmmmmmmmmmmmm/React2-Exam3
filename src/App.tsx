@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React, { Suspense, lazy } from "react";
 
 import {
   createHashRouter,
@@ -15,7 +15,11 @@ import {
   Contact,
   CreateAccount,
   SignUp,
+  ProductsCatalog,
+  Account,
 } from "./router/router";
+
+
 export default function App() {
 
   const router = createHashRouter([
@@ -64,6 +68,22 @@ export default function App() {
           element: (
             <Suspense fallback={<Loading />}>
               <SignUp />
+            </Suspense>
+          ),
+        },
+        {
+          path: "account",
+          element: (
+            <Suspense fallback={<Loading />}>
+              <Account />
+            </Suspense>
+          ),
+        },
+        {
+          path: "products/:id",
+          element: (
+            <Suspense fallback={<Loading />}>
+              <ProductsCatalog />
             </Suspense>
           ),
         },
