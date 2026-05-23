@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom'
 import { useAppSelector } from '../../app/hooks'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
-import { Check } from 'lucide-react'
 import { toast } from 'sonner'
 import { SonnerTypes } from './sonnerCheckout'
 
@@ -26,45 +25,51 @@ const validationSchema = Yup.object().shape({
 export default function Checkout() {
   const navigate = useNavigate()
   const items = useAppSelector((s) => s.cart.items)
+
   const [couponCode, setCouponCode] = useState('')
   const [discount, setDiscount] = useState(0)
 
   const subtotal = items.reduce(
     (acc, it) =>
       acc +
-      ((it.discountPrice && it.hasDiscount ? it.discountPrice : it.price ?? 0) *
+      ((it.discountPrice && it.hasDiscount
+        ? it.discountPrice
+        : it.price ?? 0) *
         it.quantity),
     0
   )
-  const shipping = 0 // Free shipping
+
+  const shipping = 0
   const total = subtotal - discount
 
   const handleSubmit = async (values: any) => {
     console.log('Form submitted:', values)
-    // Here you would typically send data to your backend/Swagger API
-    alert('Order placed successfully!')
+
+    toast.success('Order placed successfully!')
     navigate('/order-confirmation')
   }
 
   const applyCoupon = () => {
     if (couponCode.trim()) {
-      // Mock discount logic - integrate with your Swagger API
-      setDiscount(subtotal * 0.1) // 10% discount for demo
-      alert('Coupon applied!')
+      setDiscount(subtotal * 0.1)
+      toast.success('Coupon applied!')
     }
   }
-  const [open,setOpen] = useState(false)
 
   return (
-    <div className='py-10 px-25'>
-      <p className='text-sm text-gray-600 mb-8'>
-        Product / View Cart / <span className='text-gray-900 font-medium'>CheckOut</span>
+    <div className='py-6 md:py-10 px-4 sm:px-6 lg:px-25 bg-white min-h-screen'>
+      {/* Breadcrumb */}
+      <p className='text-xs sm:text-sm text-gray-500 mb-6 md:mb-8 overflow-x-auto whitespace-nowrap'>
+        Product / View Cart /{' '}
+        <span className='text-black font-semibold'>CheckOut</span>
       </p>
 
-      <div className='grid grid-cols-12 gap-8 mb-20'>
-        {/* Billing Details - Left Side */}
-        <div className='col-span-8 border border-gray-200 rounded-lg p-8'>
-          <h2 className='text-2xl font-bold mb-8'>Billing Details</h2>
+      <div className='grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 mb-16 md:mb-20'>
+        {/* LEFT SIDE */}
+        <div className='lg:col-span-8 border border-gray-200 rounded-2xl p-5 sm:p-7 md:p-8 shadow-sm'>
+          <h2 className='text-2xl md:text-3xl font-bold mb-6 md:mb-8'>
+            Billing Details
+          </h2>
 
           <Formik
             initialValues={{
@@ -81,32 +86,37 @@ export default function Checkout() {
             validationSchema={validationSchema}
             onSubmit={handleSubmit}
           >
-            {({ isSubmitting, values }) => (
-              <Form className='space-y-5'>
-                {/* First Name */}
-                <div>
-                  <Field
-                    type='text'
-                    name='firstName'
-                    placeholder='First name'
-                    className='w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-500'
-                  />
-                  <ErrorMessage name='firstName'>
-                    {(msg) => <p className='text-red-500 text-sm mt-1'>{msg}</p>}
-                  </ErrorMessage>
-                </div>
+            {() => (
+              <Form className='space-y-4 md:space-y-5'>
+                {/* First + Last Name */}
+                <div className='grid grid-cols-1 sm:grid-cols-2 gap-4'>
+                  <div>
+                    <Field
+                      type='text'
+                      name='firstName'
+                      placeholder='First name'
+                      className='w-full px-4 py-3 rounded-xl border border-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-red-500 transition'
+                    />
+                    <ErrorMessage name='firstName'>
+                      {(msg) => (
+                        <p className='text-red-500 text-sm mt-1'>{msg}</p>
+                      )}
+                    </ErrorMessage>
+                  </div>
 
-                {/* Last Name */}
-                <div>
-                  <Field
-                    type='text'
-                    name='lastName'
-                    placeholder='Last name'
-                    className='w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-500'
-                  />
-                  <ErrorMessage name='lastName'>
-                    {(msg) => <p className='text-red-500 text-sm mt-1'>{msg}</p>}
-                  </ErrorMessage>
+                  <div>
+                    <Field
+                      type='text'
+                      name='lastName'
+                      placeholder='Last name'
+                      className='w-full px-4 py-3 rounded-xl border border-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-red-500 transition'
+                    />
+                    <ErrorMessage name='lastName'>
+                      {(msg) => (
+                        <p className='text-red-500 text-sm mt-1'>{msg}</p>
+                      )}
+                    </ErrorMessage>
+                  </div>
                 </div>
 
                 {/* Street Address */}
@@ -115,141 +125,180 @@ export default function Checkout() {
                     type='text'
                     name='streetAddress'
                     placeholder='Street address'
-                    className='w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-500'
+                    className='w-full px-4 py-3 rounded-xl border border-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-red-500 transition'
                   />
                   <ErrorMessage name='streetAddress'>
-                    {(msg) => <p className='text-red-500 text-sm mt-1'>{msg}</p>}
+                    {(msg) => (
+                      <p className='text-red-500 text-sm mt-1'>{msg}</p>
+                    )}
                   </ErrorMessage>
                 </div>
 
-                {/* Apartment (Optional) */}
+                {/* Apartment */}
                 <div>
                   <Field
                     type='text'
                     name='apartment'
                     placeholder='Apartment, floor, etc. (optional)'
-                    className='w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-500'
+                    className='w-full px-4 py-3 rounded-xl border border-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-red-500 transition'
                   />
-                  <ErrorMessage name='apartment'>
-                    {(msg) => <p className='text-red-500 text-sm mt-1'>{msg}</p>}
-                  </ErrorMessage>
                 </div>
 
-                {/* Town/City */}
+                {/* Town */}
                 <div>
                   <Field
                     type='text'
                     name='townCity'
                     placeholder='Town/City'
-                    className='w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-500'
+                    className='w-full px-4 py-3 rounded-xl border border-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-red-500 transition'
                   />
                   <ErrorMessage name='townCity'>
-                    {(msg) => <p className='text-red-500 text-sm mt-1'>{msg}</p>}
+                    {(msg) => (
+                      <p className='text-red-500 text-sm mt-1'>{msg}</p>
+                    )}
                   </ErrorMessage>
                 </div>
 
-                {/* Phone Number */}
-                <div>
-                  <Field
-                    type='text'
-                    name='phoneNumber'
-                    placeholder='Phone number'
-                    className='w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-500'
-                  />
-                  <ErrorMessage name='phoneNumber'>
-                    {(msg) => <p className='text-red-500 text-sm mt-1'>{msg}</p>}
-                  </ErrorMessage>
+                {/* Phone + Email */}
+                <div className='grid grid-cols-1 sm:grid-cols-2 gap-4'>
+                  <div>
+                    <Field
+                      type='text'
+                      name='phoneNumber'
+                      placeholder='Phone number'
+                      className='w-full px-4 py-3 rounded-xl border border-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-red-500 transition'
+                    />
+                    <ErrorMessage name='phoneNumber'>
+                      {(msg) => (
+                        <p className='text-red-500 text-sm mt-1'>{msg}</p>
+                      )}
+                    </ErrorMessage>
+                  </div>
+
+                  <div>
+                    <Field
+                      type='email'
+                      name='emailAddress'
+                      placeholder='Email address'
+                      className='w-full px-4 py-3 rounded-xl border border-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-red-500 transition'
+                    />
+                    <ErrorMessage name='emailAddress'>
+                      {(msg) => (
+                        <p className='text-red-500 text-sm mt-1'>{msg}</p>
+                      )}
+                    </ErrorMessage>
+                  </div>
                 </div>
 
-                {/* Email Address */}
-                <div>
-                  <Field
-                    type='email'
-                    name='emailAddress'
-                    placeholder='Email address'
-                    className='w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-500'
-                  />
-                  <ErrorMessage name='emailAddress'>
-                    {(msg) => <p className='text-red-500 text-sm mt-1'>{msg}</p>}
-                  </ErrorMessage>
-                </div>
-
-                {/* Save Information Checkbox */}
-                <div className='flex items-center gap-3 mt-6'>
+                {/* Save Info */}
+                <div className='flex items-start sm:items-center gap-3 pt-2'>
                   <Field
                     type='checkbox'
                     name='saveInfo'
                     id='saveInfo'
-                    className='w-5 h-5 cursor-pointer accent-red-500'
+                    className='mt-1 sm:mt-0 w-5 h-5 accent-red-500 cursor-pointer'
                   />
-                  <label htmlFor='saveInfo' className='text-gray-900 cursor-pointer'>
+
+                  <label
+                    htmlFor='saveInfo'
+                    className='text-sm sm:text-base text-gray-700 leading-6 cursor-pointer'
+                  >
                     Save this information for faster check-out next time
                   </label>
                 </div>
 
-                {/* Hidden Payment Method & Submit - handled on right side */}
                 <Field type='hidden' name='paymentMethod' />
               </Form>
             )}
           </Formik>
         </div>
 
-        {/* Order Summary - Right Side */}
-        <div className='col-span-4'>
-          {/* Products */}
-          <div className='bg-gray-50 rounded-lg p-6 mb-6'>
-            <h3 className='font-bold text-lg mb-4'>Order Summary</h3>
-            <div className='space-y-4'>
+        {/* RIGHT SIDE */}
+        <div className='lg:col-span-4'>
+          {/* ORDER SUMMARY */}
+          <div className='bg-gray-50 rounded-2xl p-5 sm:p-6 mb-6 shadow-sm border border-gray-100'>
+            <h3 className='font-bold text-xl mb-5'>Order Summary</h3>
+
+            <div className='space-y-4 max-h-[400px] overflow-y-auto pr-1'>
               {items.map((it) => (
-                <div key={it.id} className='flex items-start gap-3 pb-4 border-b last:border-b-0'>
+                <div
+                  key={it.id}
+                  className='flex gap-3 pb-4 border-b last:border-b-0'
+                >
                   <img
                     src={it.image || ''}
                     alt={it.productName}
-                    className='w-16 h-16 object-cover rounded'
+                    className='w-16 h-16 sm:w-20 sm:h-20 object-cover rounded-xl border'
                   />
-                  <div className='flex-1'>
-                    <p className='font-medium text-sm'>{it.productName}</p>
-                    <p className='text-sm text-gray-600'>
-                      ${(it.discountPrice && it.hasDiscount ? it.discountPrice : it.price ?? 0).toFixed(2)}
+
+                  <div className='flex-1 min-w-0'>
+                    <p className='font-semibold text-sm sm:text-base line-clamp-2'>
+                      {it.productName}
                     </p>
+
+                    <p className='text-sm text-gray-500 mt-1'>
+                      $
+                      {(
+                        it.discountPrice && it.hasDiscount
+                          ? it.discountPrice
+                          : it.price ?? 0
+                      ).toFixed(2)}
+                    </p>
+
+                    <div className='flex items-center justify-between mt-2'>
+                      <span className='text-sm text-gray-500'>
+                        Qty: {it.quantity}
+                      </span>
+
+                      <span className='font-bold text-sm sm:text-base'>
+                        $
+                        {(
+                          (it.discountPrice && it.hasDiscount
+                            ? it.discountPrice
+                            : it.price ?? 0) * it.quantity
+                        ).toFixed(2)}
+                      </span>
+                    </div>
                   </div>
-                  <p className='font-semibold text-sm'>x{it.quantity}</p>
-                  <p className='font-semibold text-sm w-16 text-right'>
-                    ${(
-                      (it.discountPrice && it.hasDiscount ? it.discountPrice : it.price ?? 0) *
-                      it.quantity
-                    ).toFixed(2)}
-                  </p>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Totals */}
-          <div className='bg-white border border-gray-200 rounded-lg p-6 mb-6'>
-            <div className='space-y-3 mb-4'>
+          {/* TOTALS */}
+          <div className='bg-white border border-gray-200 rounded-2xl p-5 sm:p-6 mb-6 shadow-sm'>
+            <div className='space-y-4'>
               <div className='flex items-center justify-between'>
-                <span className='text-gray-600'>Subtotal:</span>
-                <span className='font-medium'>${subtotal.toFixed(2)}</span>
+                <span className='text-gray-500'>Subtotal</span>
+                <span className='font-semibold'>
+                  ${subtotal.toFixed(2)}
+                </span>
               </div>
+
               <div className='flex items-center justify-between'>
-                <span className='text-gray-600'>Shipping:</span>
-                <span className='font-medium'>{shipping === 0 ? 'Free' : `$${shipping.toFixed(2)}`}</span>
+                <span className='text-gray-500'>Shipping</span>
+                <span className='font-semibold text-green-600'>
+                  {shipping === 0 ? 'Free' : `$${shipping.toFixed(2)}`}
+                </span>
               </div>
+
               {discount > 0 && (
                 <div className='flex items-center justify-between text-green-600'>
-                  <span>Discount:</span>
-                  <span>-${discount.toFixed(2)}</span>
+                  <span>Discount</span>
+                  <span>- ${discount.toFixed(2)}</span>
                 </div>
               )}
-            </div>
-            <div className='border-t pt-4 flex items-center justify-between'>
-              <strong className='text-lg'>Total:</strong>
-              <strong className='text-lg'>${total.toFixed(2)}</strong>
+
+              <div className='border-t pt-4 flex items-center justify-between'>
+                <span className='text-lg font-bold'>Total</span>
+                <span className='text-xl font-extrabold'>
+                  ${total.toFixed(2)}
+                </span>
+              </div>
             </div>
           </div>
 
-          {/* Payment Method */}
+          {/* PAYMENT */}
           <Formik
             initialValues={{
               firstName: '',
@@ -265,73 +314,109 @@ export default function Checkout() {
             validationSchema={validationSchema}
             onSubmit={handleSubmit}
           >
-            {({ values, setFieldValue, isSubmitting }) => (
-              <Form className='space-y-4'>
+            {({ values, setFieldValue }) => (
+              <Form className='space-y-5'>
                 {/* Payment Methods */}
-                <div className='bg-white border border-gray-200 rounded-lg p-6 space-y-4 mb-6'>
-                  {/* Bank Option */}
-                  <label className='flex items-center gap-3 cursor-pointer p-3 border border-gray-200 rounded hover:bg-gray-50'>
+                <div className='bg-white border border-gray-200 rounded-2xl p-5 sm:p-6 space-y-4 shadow-sm'>
+                  <h3 className='text-lg font-bold'>Payment Method</h3>
+
+                  {/* BANK */}
+                  <label
+                    className={`flex items-center gap-3 p-4 rounded-2xl border cursor-pointer transition ${
+                      values.paymentMethod === 'bank'
+                        ? 'border-red-500 bg-red-50'
+                        : 'border-gray-200 hover:bg-gray-50'
+                    }`}
+                  >
                     <input
                       type='radio'
                       name='paymentMethod'
                       value='bank'
                       checked={values.paymentMethod === 'bank'}
-                      onChange={(e) => setFieldValue('paymentMethod', e.target.value)}
-                      className='w-4 h-4 cursor-pointer'
+                      onChange={(e) =>
+                        setFieldValue('paymentMethod', e.target.value)
+                      }
+                      className='w-4 h-4 accent-red-500'
                     />
-                    <span className='font-medium'>Bank</span>
-                    <div className='flex items-center gap-2 ml-auto'>
+
+                    <div>
+                      <p className='font-semibold'>Bank</p>
+                      <p className='text-sm text-gray-500'>
+                        Visa / Mastercard
+                      </p>
+                    </div>
+
+                    <div className='ml-auto flex gap-2'>
                       <img
-                        src='https://via.placeholder.com/30x20?text=Visa'
+                        src='https://via.placeholder.com/40x24?text=Visa'
                         alt='Visa'
-                        className='h-5'
+                        className='h-6 rounded'
                       />
                       <img
-                        src='https://via.placeholder.com/30x20?text=MC'
+                        src='https://via.placeholder.com/40x24?text=MC'
                         alt='Mastercard'
-                        className='h-5'
+                        className='h-6 rounded'
                       />
                     </div>
                   </label>
 
-                  {/* Cash on Delivery Option */}
-                  <label className='flex items-center gap-3 cursor-pointer p-3 border border-gray-200 rounded hover:bg-gray-50'>
+                  {/* CASH */}
+                  <label
+                    className={`flex items-center gap-3 p-4 rounded-2xl border cursor-pointer transition ${
+                      values.paymentMethod === 'cash'
+                        ? 'border-red-500 bg-red-50'
+                        : 'border-gray-200 hover:bg-gray-50'
+                    }`}
+                  >
                     <input
                       type='radio'
                       name='paymentMethod'
                       value='cash'
                       checked={values.paymentMethod === 'cash'}
-                      onChange={(e) => setFieldValue('paymentMethod', e.target.value)}
-                      className='w-4 h-4 cursor-pointer'
+                      onChange={(e) =>
+                        setFieldValue('paymentMethod', e.target.value)
+                      }
+                      className='w-4 h-4 accent-red-500'
                     />
-                    <span className='font-medium'>Cash on delivery</span>
+
+                    <div>
+                      <p className='font-semibold'>Cash on delivery</p>
+                      <p className='text-sm text-gray-500'>
+                        Pay when your order arrives
+                      </p>
+                    </div>
                   </label>
 
                   <ErrorMessage name='paymentMethod'>
-                    {(msg) => <p className='text-red-500 text-sm'>{msg}</p>}
+                    {(msg) => (
+                      <p className='text-red-500 text-sm'>{msg}</p>
+                    )}
                   </ErrorMessage>
                 </div>
 
-                {/* Coupon Code */}
-                <div className='flex gap-3'>
+                {/* COUPON */}
+                <div className='flex flex-col sm:flex-row gap-3'>
                   <input
                     type='text'
                     placeholder='Coupon Code'
                     value={couponCode}
                     onChange={(e) => setCouponCode(e.target.value)}
-                    className='flex-1 px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-500'
+                    className='flex-1 px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500'
                   />
+
                   <button
                     type='button'
                     onClick={applyCoupon}
-                    className='px-6 py-2 border border-red-300 text-red-500 rounded hover:bg-red-50 font-medium'
+                    className='w-full sm:w-auto px-6 py-3 rounded-xl bg-red-500 hover:bg-red-600 text-white font-semibold transition'
                   >
                     Apply
                   </button>
                 </div>
 
-                {/* Place Order Button */}
-                <SonnerTypes />
+                {/* BUTTON */}
+                <div className='pt-2'>
+                  <SonnerTypes />
+                </div>
               </Form>
             )}
           </Formik>

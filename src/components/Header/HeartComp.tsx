@@ -10,7 +10,7 @@ const HeartComp = memo(() => {
   return (
     <Link 
       to="/wishlist" 
-      className="hidden lg:flex relative p-2 rounded-full hover:bg-neutral-100 transition items-center justify-center" 
+      className=" lg:flex relative p-2 rounded-full hover:bg-neutral-100 transition items-center justify-center" 
       aria-label="Wishlist"
     >
       <Heart size={20} strokeWidth={1.8} />

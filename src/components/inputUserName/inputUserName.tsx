@@ -1,52 +1,114 @@
 import {
   Field,
-  FieldDescription,
-  FieldLabel,
 } from "@/components/ui/field"
+
 import { Input } from "@/components/ui/input"
 
-export function InputUserName({forms,setForms}: any) {
+import { ErrorMessage } from "formik"
+
+export function InputUserName({ forms, setForms }: any) {
   return (
-    <Field>
-      <Input
-      className = "mb-3"
-        id="input-field-username"
-        type="text"
-        value={forms.userName}
-        onChange = {(e) =>setForms({...forms, userName: e.target.value})}
-        placeholder="Enter your username"
-      />
-      <Input
-      className = "mb-3"
+    <Field className="space-y-4">
+      
+      {/* USERNAME */}
+      <div>
+        <Input
+          className="h-[54px] lg:h-[58px] rounded-xl border-gray-300 focus-visible:ring-[#DB4444] text-sm lg:text-base"
+          id="input-field-username"
+          type="text"
+          value={forms.userName}
+          onChange={(e) =>
+            setForms("userName", e.target.value)
+          }
+          placeholder="Enter your username"
+        />
+
+        <ErrorMessage
+          name="userName"
+          component="p"
+          className="text-red-500 text-sm mt-1"
+        />
+      </div>
+
+      {/* EMAIL */}
+      <div>
+        <Input
+          className="h-[54px] lg:h-[58px] rounded-xl border-gray-300 focus-visible:ring-[#DB4444] text-sm lg:text-base"
           id="fieldgroup-email"
           type="email"
           value={forms.email}
-          onChange = {(e) =>setForms({...forms, email: e.target.value})}
+          onChange={(e) =>
+            setForms("email", e.target.value)
+          }
           placeholder="Name@gmail.com"
         />
-        <Input
-        className = "mb-3"
-          id="fieldgroup-telephone"
-          type="telephone"
-          value={forms.phoneNumber}
-          onChange = {(e) =>setForms({...forms, phoneNumber: e.target.value})}
-          placeholder="+380 00 000 00 00"
+
+        <ErrorMessage
+          name="email"
+          component="p"
+          className="text-red-500 text-sm mt-1"
         />
+      </div>
+
+      {/* PHONE */}
+      <div>
         <Input
+          className="h-[54px] lg:h-[58px] rounded-xl border-gray-300 focus-visible:ring-[#DB4444] text-sm lg:text-base"
+          id="fieldgroup-telephone"
+          type="text"
+          value={forms.phoneNumber}
+          onChange={(e) =>
+            setForms("phoneNumber", e.target.value)
+          }
+          placeholder="+992 00 000 00 00"
+        />
+
+        <ErrorMessage
+          name="phoneNumber"
+          component="p"
+          className="text-red-500 text-sm mt-1"
+        />
+      </div>
+
+      {/* PASSWORD */}
+      <div>
+        <Input
+          className="h-[54px] lg:h-[58px] rounded-xl border-gray-300 focus-visible:ring-[#DB4444] text-sm lg:text-base"
           id="fieldgroup-password"
           type="password"
           value={forms.password}
-          onChange = {(e) =>setForms({...forms, password: e.target.value})}
+          onChange={(e) =>
+            setForms("password", e.target.value)
+          }
           placeholder="Password"
         />
+
+        <ErrorMessage
+          name="password"
+          component="p"
+          className="text-red-500 text-sm mt-1"
+        />
+      </div>
+
+      {/* CONFIRM PASSWORD */}
+      <div>
         <Input
+          className="h-[54px] lg:h-[58px] rounded-xl border-gray-300 focus-visible:ring-[#DB4444] text-sm lg:text-base"
           id="fieldgroup-confirmPassword"
           type="password"
           value={forms.confirmPassword}
-          onChange = {(e) =>setForms({...forms, confirmPassword: e.target.value})}
-          placeholder="Password"
+          onChange={(e) =>
+            setForms("confirmPassword", e.target.value)
+          }
+          placeholder="Confirm Password"
         />
-        
+
+        <ErrorMessage
+          name="confirmPassword"
+          component="p"
+          className="text-red-500 text-sm mt-1"
+        />
+      </div>
     </Field>
   )
 }

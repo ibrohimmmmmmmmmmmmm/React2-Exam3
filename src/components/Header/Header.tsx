@@ -60,7 +60,7 @@ const Header = memo(() => {
 
               <nav className="flex flex-col">
                 {navLinks.map((l) => {
-                  if(getToken() && l.href === "/signup") {
+                  if(getToken() && (l.href === "/signup" || l.href==="/signup2")) {
                     return null;
                   }
                   return (
@@ -79,7 +79,7 @@ const Header = memo(() => {
         </div>
         <nav className="hidden lg:flex items-center gap-1">
           {navLinks.map((l) => {
-            if(getToken() && l.href === "/signup") {
+            if(getToken() && (l.href === "/signup" || l.href === "/signup2")) {
               return null;
             }
             return (

@@ -1,5 +1,10 @@
 import React, { memo } from "react"
-import { User, CreditCardIcon, LogOutIcon, SettingsIcon, UserIcon, LogOut } from "lucide-react"
+import {
+  User,
+  CreditCardIcon,
+  LogOutIcon,
+  UserIcon,
+} from "lucide-react"
 
 import {
   DropdownMenu,
@@ -9,11 +14,23 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
-import { getToken } from "@/utils/token"
+import { getToken, RemoveToken } from "@/utils/token"
 import { useNavigate } from "react-router-dom"
 
 export default memo(function UserDropdown() {
   const navigate = useNavigate()
+
+  function logout() {
+    // remove token
+    RemoveToken()
+
+    // redirect
+    navigate("/signup2")
+
+    // refresh app
+    window.location.reload()
+  }
+
   return (
     <>
       {getToken() && (
@@ -28,7 +45,9 @@ export default memo(function UserDropdown() {
           </DropdownMenuTrigger>
 
           <DropdownMenuContent align="end">
-            <DropdownMenuItem onSelect={() => navigate("/account")}>
+            <DropdownMenuItem
+              onSelect={() => navigate("/account")}
+            >
               <UserIcon className="mr-2 h-4 w-4" />
               Account
             </DropdownMenuItem>
@@ -40,7 +59,10 @@ export default memo(function UserDropdown() {
 
             <DropdownMenuSeparator />
 
-            <DropdownMenuItem variant="destructive">
+            <DropdownMenuItem
+              variant="destructive"
+              onClick={logout}
+            >
               <LogOutIcon className="mr-2 h-4 w-4" />
               Log out
             </DropdownMenuItem>
