@@ -10,3 +10,4 @@ export const Account = lazy(() => import("../pages/Account/Account"));
 export const Wishlist = lazy(() => import("../pages/Wishlist/Wishlist"));
 export const ProductDetail = lazy(() => import("../pages/ProductDetail/ProductDetail"));
 export const Cart = lazy(() => import("../pages/Cart/Cart"));
+export const Checkout = lazy(() => import("../pages/Checkout/Checkout"));

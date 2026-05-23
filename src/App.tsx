@@ -19,7 +19,8 @@ import {
   Account,
   Wishlist,
   ProductDetail,
-    Cart,
+  Cart,
+  Checkout,
 } from "./router/router";
 
 
@@ -103,6 +104,14 @@ export default function App() {
           element: (
             <Suspense fallback={<Loading />}>
               <Cart />
+            </Suspense>
+          ),
+        },
+        {
+          path: "checkout",
+          element: (
+            <Suspense fallback={<Loading />}>
+              <Checkout />
             </Suspense>
           ),
         },
