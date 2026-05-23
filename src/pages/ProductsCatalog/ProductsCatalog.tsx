@@ -1,10 +1,12 @@
 import React, { useEffect, useState, useMemo } from 'react'
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import Loading from '../../components/Loading/Loading'
 import ProductsSidebar from './SidebarProducts'
 import { Heart, Eye, ShoppingCart } from 'lucide-react'
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
 import { toggleWishlist } from '../../features/wishlistSlice'
+import { addToCart } from '../../features/cartSlice'
 
 type Product = {
   id: number
@@ -29,6 +31,7 @@ type Filters = {
 
 export default function ProductsCatalog() {
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
   const wishlistItems = useAppSelector((state) => state.wishlist.items)
   const wishlistedIds = useMemo(() => new Set(wishlistItems.map((item) => item.id)), [wishlistItems])
 
@@ -186,7 +189,10 @@ export default function ProductsCatalog() {
                             >
                               <Heart size={20} fill={isWishlisted ? "currentColor" : "none"} />
                             </button>
-                            <button className='bg-white text-gray-900 rounded-full p-2.5 shadow-md hover:bg-blue-500 hover:text-white transition-all duration-200 flex items-center justify-center opacity-0 group-hover:opacity-100 cursor-pointer'>
+                            <button 
+                              onClick={() => navigate(`/product-detail/${p.id}`)}
+                              className='bg-white text-gray-900 rounded-full p-2.5 shadow-md hover:bg-blue-500 hover:text-white transition-all duration-200 flex items-center justify-center opacity-0 group-hover:opacity-100 cursor-pointer'
+                            >
                               <Eye size={20} />
                             </button>
                           </div>
@@ -210,14 +216,15 @@ export default function ProductsCatalog() {
                           </div>
                           {/* Rating */}
                           <div className='flex items-center gap-2'>
-                            {renderStars(p.rating)}
+                            {
+                            (p.rating)}
                             <span className='text-xs text-gray-500'>({p.rating ? Math.round(p.rating * 10) : 0})</span>
                           </div>
                         </div>
 
                         {/* Hover Add To Cart Button - Bottom */}
                         <div className='px-4 pb-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300'>
-                          <button className='w-full bg-black text-white py-2 font-bold text-sm hover:bg-gray-800 transition-colors duration-200 rounded'>
+                          <button onClick={() => { dispatch(addToCart({ id: p.id, productName: p.productName, price: p.price, discountPrice: p.discountPrice, hasDiscount: p.hasDiscount, image: p.image || null, quantity: 1 })); }} className='w-full bg-black text-white py-2 font-bold text-sm hover:bg-gray-800 transition-colors duration-200 rounded'>
                             Add To Cart
                           </button>
                         </div>

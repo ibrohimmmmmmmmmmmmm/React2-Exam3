@@ -6,6 +6,7 @@ import logo from "@/assets/Group 1116606595 (4).png";
 import { getToken } from "../../utils/token";
 import UserDropdown from "./UserDropdown/UserDropdown";
 import HeartComp from "./HeartComp";
+import ShoppingIcon from "./ShoppingIcon";
 
 const navLinks = [
   { name: "Home", href: "/" },
@@ -100,12 +101,7 @@ const Header = memo(() => {
 
           <HeartComp />
 
-          <button className="relative p-2 rounded-full hover:bg-neutral-100 transition" aria-label="Cart">
-            <ShoppingCart size={20} strokeWidth={1.8} />
-          </button>
-
-          
-
+          <ShoppingIcon />
           <UserDropdown  />
         </div>
       </div>

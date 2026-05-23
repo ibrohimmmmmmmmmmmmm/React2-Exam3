@@ -8,3 +8,5 @@ export const SignUp = lazy(() => import("../pages/SignUp/SignUp"));
 export const ProductsCatalog = lazy(() => import("../pages/ProductsCatalog/ProductsCatalog"));
 export const Account = lazy(() => import("../pages/Account/Account"));
 export const Wishlist = lazy(() => import("../pages/Wishlist/Wishlist"));
+export const ProductDetail = lazy(() => import("../pages/ProductDetail/ProductDetail"));
+export const Cart = lazy(() => import("../pages/Cart/Cart"));
