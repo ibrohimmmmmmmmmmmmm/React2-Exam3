@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from '../../../app/hooks'
 import { axiosRequest } from '../../../utils/token'
 import { addToCart } from '../../../features/cartSlice'
 import { toggleWishlist } from '../../../features/wishlistSlice'
+import { useTranslation } from 'react-i18next'
 
 type Product = {
   id: number
@@ -56,7 +57,7 @@ function ProductCard({ p, isWishlisted, onWishlist, onView, onCart }: ProductCar
 
   const displayPrice =
     p.hasDiscount && p.discountPrice ? p.discountPrice : p.price ?? 0
-
+  const { t } = useTranslation()
   return (
     <div className='group relative rounded-2xl overflow-hidden bg-white dark:bg-neutral-900 border border-gray-100 dark:border-neutral-800 shadow-sm hover:shadow-xl transition-all duration-300'>
       
