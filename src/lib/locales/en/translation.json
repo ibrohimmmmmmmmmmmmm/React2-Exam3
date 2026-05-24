@@ -1,3 +1,336 @@
 {
-    
+  "error": {
+    "title": "Lost in Space?",
+    "description": "The page you're looking for has vanished into the digital void. Don't worry, even the best explorers get lost sometimes.",
+    "goBack": "Go Back",
+    "home": "Take Me Home"
+  },
+  "footer": {
+    "brand": "Exclusive",
+    "subscribe": "Subscribe",
+    "discount": "Get 10% off your first order",
+    "emailPlaceholder": "Enter your email",
+
+    "support": "Support",
+    "address": "111 Bijoy sarani, Dhaka, DH 1515, Bangladesh.",
+    "email": "exclusive@gmail.com",
+    "phone": "+88015-88888-9999",
+
+    "account": "Account",
+    "accountItems": ["My Account", "Cart", "Wishlist", "Shop"],
+
+    "quickLinks": "Quick Link",
+    "quickItems": ["Privacy Policy", "Terms Of Use", "FAQ", "Contact"],
+
+    "social": "Social",
+
+    "copyright": "© Copyright Rimel 2022. All right reserved"
+  },
+   "header": {
+    "nav": {
+      "home": "Home",
+      "contact": "Contact",
+      "about": "About",
+      "signup": "Sign Up"
+    },
+    "searchPlaceholder": "What are you looking for?"
+  },
+  "userDropdown": {
+    "welcome": "Welcome back",
+    "username": "FastCart User",
+    "account": "Account",
+    "orders": "My Orders",
+    "logout": "Log out"
+  },
+  "section1": {
+    "search": "Search",
+    "loading": "Loading...",
+    "loadingCategories": "Loading categories...",
+    "error": "Error loading categories",
+
+    "banner": {
+      "subtitle": "iPhone 14 Series",
+      "titleLine1": "Up to 10% off",
+      "titleLine2": "Voucher",
+      "button": "Shop Now"
+    }
+  },
+   "browseCategory": {
+    "label": "Categories",
+    "title": "Browse By Category",
+    "items": {
+      "phones": "Phones",
+      "computers": "Computers",
+      "smartWatch": "Smart Watch",
+      "camera": "Camera",
+      "headphones": "Headphones",
+      "gaming": "Gaming"
+    }
+  },
+  "hero": {
+    "subtitle": "iPhone 14 Series",
+    "titleLine1": "Up to 10% off",
+    "titleLine2": "Voucher",
+    "button": "Shop Now"
+  },
+  "today": "Today's",
+  "flashSales": "Flash Sales",
+  "section4": {
+    "label": "This Month",
+    "title": "Best Selling Products",
+    "addToCart": "Add To Cart",
+    "viewAll": "View All Products",
+    "showLess": "Show Less",
+    "productFallback": "Product"
+  },
+  "musicBanner": {
+    "category": "Categories",
+    "title": "Enhance Your Music Experience",
+    "button": "Buy Now!",
+    "time": {
+      "days": "Days",
+      "hours": "Hours",
+      "minutes": "Minutes",
+      "seconds": "Seconds"
+    }
+  },
+  "productsCatalog": {
+    "breadcrumb": {
+      "home": "Home",
+      "title": "Explore Our Products"
+    },
+    "sort": {
+      "popular": "Popularity",
+      "lowHigh": "Price: Low to High",
+      "highLow": "Price: High to Low",
+      "newest": "Newest"
+    },
+    "empty": "No products found.",
+    "noImage": "No image",
+    "product": "Product",
+    "addToCart": "Add To Cart",
+    "more": "More Products"
+  },
+  "newArrival": {
+    "featured": "Featured",
+    "title": "New Arrival",
+
+    "card": {
+      "title": "New Collection",
+      "desc": "Explore our latest arrivals.",
+      "button": "Shop Now"
+    },
+
+    "ps5": {
+      "title": "PlayStation 5",
+      "desc": "Black and White version of the PS5 coming out on sale."
+    },
+
+    "women": {
+      "title": "Women's Collections",
+      "desc": "Featured woman collections that give you another vibe."
+    },
+
+    "speakers": {
+      "title": "Speakers"
+    },
+
+    "perfume": {
+      "title": "Perfume"
+    },
+
+    "service": {
+      "delivery": {
+        "title": "Free And Fast Delivery",
+        "desc": "Free delivery for all orders over $140"
+      },
+      "support": {
+        "title": "24/7 Customer Service",
+        "desc": "Friendly 24/7 customer support"
+      },
+      "refund": {
+        "title": "Money Back Guarantee",
+        "desc": "We return money within 30 days"
+      }
+    }
+  },
+   "contact": {
+    "breadcrumb": {
+      "home": "Home",
+      "contact": "Contact"
+    },
+    "call": {
+      "title": "Call To Us",
+      "desc": "We are available 24/7, 7 days a week.",
+      "phone": "Phone: +8801611112222"
+    },
+    "email": {
+      "title": "Write To Us",
+      "desc": "Fill out our form and we will contact you within 24 hours.",
+      "one": "Emails: customer@exclusive.com",
+      "two": "Emails: support@exclusive.com"
+    },
+    "form": {
+      "name": "Name *",
+      "email": "Email *",
+      "phone": "Phone",
+      "message": "Your Message *",
+      "submit": "Send Message"
+    },
+    "toast": {
+      "error": "Please fill in all required fields.",
+      "success": "Message sent successfully!",
+      "successDesc": "We'll get back to you within 24 hours."
+    }
+  },
+
+  "about": {
+    "breadcrumb": {
+      "home": "Home",
+      "about": "About"
+    },
+    "story": {
+      "title": "Our Story",
+      "p1": "Launched in 2015, Exclusive is South Asia's premier online shopping marketplace...",
+      "p2": "Exclusive has more than 1 Million products to offer..."
+    },
+    "stats": {
+      "sellers": "Sellers active on our site",
+      "sales": "Monthly Product Sale",
+      "customers": "Customer active on our site",
+      "gross": "Annual gross sale on our site"
+    },
+    "team": {
+      "founder": "Founder & Chairman",
+      "director": "Managing Director",
+      "designer": "Product Designer",
+      "marketing": "Head of Marketing",
+      "developer": "Lead Developer"
+    },
+    "features": {
+      "delivery": {
+        "title": "Free And Fast Delivery",
+        "desc": "Free delivery for all orders over $140"
+      },
+      "support": {
+        "title": "24/7 Customer Service",
+        "desc": "Friendly 24/7 customer support"
+      },
+      "refund": {
+        "title": "Money Back Guarantee",
+        "desc": "We return money within 30 days"
+      }
+    }
+  },
+
+  "contact": {
+    "breadcrumb": {
+      "home": "Home",
+      "contact": "Contact"
+    },
+    "card": {
+      "callTitle": "Call To Us",
+      "callDesc": "We are available 24/7, 7 days a week.",
+      "writeTitle": "Write To Us",
+      "writeDesc": "Fill out our form and we will contact you within 24 hours.",
+      "phone": "Phone",
+      "emails": "Emails"
+    },
+    "form": {
+      "name": "Name *",
+      "email": "Email *",
+      "phone": "Phone",
+      "message": "Your Message *",
+      "send": "Send Message"
+    },
+    "toast": {
+      "fillAll": "Please fill in all required fields.",
+      "success": "Message sent successfully!",
+      "successDesc": "We'll get back to you within 24 hours."
+    }
+  },
+
+  "products": {
+    "breadcrumb": {
+      "home": "Home",
+      "catalog": "Explore Our Products"
+    },
+    "sort": {
+      "popular": "Popularity",
+      "lowToHigh": "Price: Low to High",
+      "highToLow": "Price: High to Low",
+      "newest": "Newest"
+    },
+    "empty": "No products found",
+    "more": "More Products"
+  },
+
+  "music": {
+    "category": "Categories",
+    "title": "Enhance Your Music Experience",
+    "hours": "Hours",
+    "days": "Days",
+    "minutes": "Minutes",
+    "seconds": "Seconds",
+    "buy": "Buy Now"
+  },
+
+  "hero": {
+    "series": "iPhone 14 Series",
+    "discount": "Up to 10% off Voucher",
+    "shop": "Shop Now"
+  },
+  
+  "account": {
+    "breadcrumbHome": "Home",
+    "breadcrumbAccount": "My Account",
+
+    "sidebar": {
+      "manage": "Manage My Account",
+      "orders": "My Orders",
+      "profile": "My Profile",
+      "address": "Address Book",
+      "payment": "My Payment Options",
+      "returns": "My Returns",
+      "cancellations": "My Cancellations",
+      "wishlist": "My WishList"
+    },
+
+    "profile": {
+      "title": "Profile",
+      "firstName": "First name",
+      "lastName": "Last name",
+      "email": "Email address",
+      "street": "Street address",
+
+      "passwordTitle": "Password Changes",
+      "currentPassword": "Current password",
+      "newPassword": "New password",
+      "confirmPassword": "Confirm new password",
+
+      "saveSuccess": "Changes saved successfully!",
+      "cancel": "Cancel",
+      "save": "Save Changes",
+      "saving": "Saving..."
+    },
+
+    "validation": {
+      "firstName": "First name is required",
+      "lastName": "Last name is required",
+      "emailRequired": "Email is required",
+      "emailInvalid": "Enter a valid email address",
+      "currentPassword": "Current password is required",
+      "newPasswordRequired": "New password is required",
+      "newPasswordLength": "At least 6 characters",
+      "confirmPassword": "Please confirm your new password",
+      "passwordMatch": "Passwords do not match"
+    },
+
+    "placeholder": {
+      "comingSoon": "content coming soon."
+    }
+  }
+
+
+
 }

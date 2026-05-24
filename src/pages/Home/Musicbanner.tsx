@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 
 import SPEAKER_IMG from "../../assets/JBL_BOOMBOX_2_HERO_020_x1 (1) 1.png"
+import { useTranslation } from 'react-i18next'
+
 const TARGET_SECONDS = 5 * 86400 + 23 * 3600 + 59 * 60 + 35
 
 function TimeUnit({ value, label }: { value: string; label: string }) {
@@ -13,11 +15,12 @@ function TimeUnit({ value, label }: { value: string; label: string }) {
 }
 
 export default function MusicBanner() {
+  const { t } = useTranslation()
   const [remaining, setRemaining] = useState(TARGET_SECONDS)
 
   useEffect(() => {
-    const t = setInterval(() => setRemaining(p => (p > 0 ? p - 1 : 0)), 1000)
-    return () => clearInterval(t)
+    const tmr = setInterval(() => setRemaining(p => (p > 0 ? p - 1 : 0)), 1000)
+    return () => clearInterval(tmr)
   }, [])
 
   const pad = (n: number) => String(n).padStart(2, '0')
@@ -30,24 +33,30 @@ export default function MusicBanner() {
     <div className='px-4 sm:px-6 md:px-[100px] py-6 bg-white dark:bg-gray-950 transition-colors duration-300'>
       <div className='relative w-full rounded-xl overflow-hidden bg-[#0d0d0d] dark:bg-gray-900'>
 
-        {/* Glow blob behind speaker */}
         <div className='absolute right-0 top-0 bottom-0 w-[60%] bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.04)_0%,transparent_70%)] pointer-events-none' />
 
-        {/* ── MOBILE layout (stacked) ── */}
+        {/* ── MOBILE ── */}
         <div className='flex flex-col sm:hidden px-6 pt-8 pb-0'>
-          <span className='text-[#00FF66] text-xs font-semibold tracking-wide mb-3'>Categories</span>
+
+          <span className='text-[#00FF66] text-xs font-semibold tracking-wide mb-3'>
+            {t('musicBanner.category')}
+          </span>
+
           <h2 className='text-white text-2xl font-bold leading-tight mb-6'>
-            Enhance Your Music Experience
+            {t('musicBanner.title')}
           </h2>
+
           <div className='flex items-center gap-2 mb-6'>
-            <TimeUnit value={pad(hours)}   label='Hours'   />
-            <TimeUnit value={pad(days)}    label='Days'    />
-            <TimeUnit value={pad(minutes)} label='Minutes' />
-            <TimeUnit value={pad(seconds)} label='Seconds' />
+            <TimeUnit value={pad(hours)}   label={t('musicBanner.time.hours')} />
+            <TimeUnit value={pad(days)}    label={t('musicBanner.time.days')} />
+            <TimeUnit value={pad(minutes)} label={t('musicBanner.time.minutes')} />
+            <TimeUnit value={pad(seconds)} label={t('musicBanner.time.seconds')} />
           </div>
+
           <button className='w-fit bg-[#00FF66] hover:bg-[#00dd55] text-black font-bold text-sm px-8 py-3 rounded mb-6 transition-colors duration-200'>
-            Buy Now!
+            {t('musicBanner.button')}
           </button>
+
           <div className='flex justify-center'>
             <img
               src={SPEAKER_IMG}
@@ -57,26 +66,31 @@ export default function MusicBanner() {
           </div>
         </div>
 
-        {/* ── DESKTOP layout (side by side) ── */}
+        {/* ── DESKTOP ── */}
         <div className='hidden sm:flex items-center min-h-[320px] md:min-h-[360px]'>
-          {/* Left content */}
+
           <div className='flex flex-col justify-center px-10 md:px-14 py-12 flex-1'>
-            <span className='text-[#00FF66] text-sm font-semibold tracking-wide mb-4'>Categories</span>
+
+            <span className='text-[#00FF66] text-sm font-semibold tracking-wide mb-4'>
+              {t('musicBanner.category')}
+            </span>
+
             <h2 className='text-white text-3xl md:text-4xl font-bold leading-tight mb-8'>
-              Enhance Your<br />Music Experience
+              {t('musicBanner.title')}
             </h2>
+
             <div className='flex items-center gap-3 mb-8'>
-              <TimeUnit value={pad(hours)}   label='Hours'   />
-              <TimeUnit value={pad(days)}    label='Days'    />
-              <TimeUnit value={pad(minutes)} label='Minutes' />
-              <TimeUnit value={pad(seconds)} label='Seconds' />
+              <TimeUnit value={pad(hours)}   label={t('musicBanner.time.hours')} />
+              <TimeUnit value={pad(days)}    label={t('musicBanner.time.days')} />
+              <TimeUnit value={pad(minutes)} label={t('musicBanner.time.minutes')} />
+              <TimeUnit value={pad(seconds)} label={t('musicBanner.time.seconds')} />
             </div>
+
             <button className='w-fit bg-[#00FF66] hover:bg-[#00dd55] text-black font-bold px-10 py-3 rounded transition-colors duration-200'>
-              Buy Now!
+              {t('musicBanner.button')}
             </button>
           </div>
 
-          {/* Right speaker */}
           <div className='flex items-center justify-center w-[45%] py-6 pr-8'>
             <img
               src={SPEAKER_IMG}

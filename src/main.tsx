@@ -5,7 +5,7 @@ import { Provider } from 'react-redux'
 import App from './App.tsx'
 
 import './index.css'
-import '@/lib/i18n.ts'
+import "../src/lib/i18n.ts"
 import { store } from './app/store.ts'
 import { ThemeProvider } from './components/ui/theme-provider.tsx'
 

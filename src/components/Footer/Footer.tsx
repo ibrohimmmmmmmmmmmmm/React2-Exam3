@@ -4,15 +4,8 @@ import img2 from "@/assets/Icon-Twitter.png";
 import img3 from "@/assets/icon-instagram.png";
 import img4 from "@/assets/Icon-Linkedin.png";
 import { memo } from "react";
+import { useTranslation } from "react-i18next";
 
-const support = {
-  address: "111 Bijoy sarani, Dhaka, DH 1515, Bangladesh.",
-  email: "exclusive@gmail.com",
-  phone: "+88015-88888-9999",
-};
-
-const account = ["My Account", "Cart", "Wishlist", "Shop"];
-const quickLinks = ["Privacy Policy", "Terms Of Use", "FAQ", "Contact"];
 const socials = [
   { src: img1, label: "Facebook" },
   { src: img2, label: "Twitter" },
@@ -21,21 +14,33 @@ const socials = [
 ];
 
 export default memo(function Footer() {
+  const { t } = useTranslation();
+
   return (
     <footer className="bg-[#0d0d0d] text-white">
       <div className="max-w-7xl mx-auto px-6 md:px-10 pt-14 pb-10">
 
         <div className="grid grid-cols-2 md:grid-cols-[1.8fr_1fr_1fr_1fr_1fr] gap-y-10 gap-x-6">
 
+          {/* Subscribe */}
           <div className="col-span-2 md:col-span-1 flex flex-col gap-4">
-            <h2 className="text-[22px] font-black tracking-tight">Exclusive</h2>
+            <h2 className="text-[22px] font-black tracking-tight">
+              {t("footer.brand")}
+            </h2>
+
             <div>
-              <p className="text-[14px] font-semibold mb-1">Subscribe</p>
-              <p className="text-[13px] text-neutral-400 mb-3">Get 10% off your first order</p>
+              <p className="text-[14px] font-semibold mb-1">
+                {t("footer.subscribe")}
+              </p>
+
+              <p className="text-[13px] text-neutral-400 mb-3">
+                {t("footer.discount")}
+              </p>
+
               <div className="flex items-center border border-neutral-600 rounded overflow-hidden w-full max-w-[260px] focus-within:border-neutral-400 transition-colors">
                 <input
                   type="email"
-                  placeholder="Enter your email"
+                  placeholder={t("footer.emailPlaceholder")}
                   className="flex-1 min-w-0 bg-transparent px-3 py-2.5 text-[12px] text-white placeholder:text-neutral-500 outline-none"
                 />
                 <button className="px-3 py-2.5 text-white hover:text-neutral-300 border-l border-neutral-600 transition-colors shrink-0">
@@ -45,43 +50,68 @@ export default memo(function Footer() {
             </div>
           </div>
 
+          {/* Support */}
           <div className="col-span-2 md:col-span-1 flex flex-col gap-4">
-            <h3 className="text-[14px] font-semibold">Support</h3>
+            <h3 className="text-[14px] font-semibold">
+              {t("footer.support")}
+            </h3>
+
             <div className="flex flex-col gap-3 text-[13px] text-neutral-400 leading-relaxed">
-              <p>{support.address}</p>
-              <p>{support.email}</p>
-              <p>{support.phone}</p>
+              <p>{t("footer.address")}</p>
+              <p>{t("footer.email")}</p>
+              <p>{t("footer.phone")}</p>
             </div>
           </div>
 
+          {/* Account */}
           <div className="flex flex-col gap-4">
-            <h3 className="text-[14px] font-semibold">Account</h3>
+            <h3 className="text-[14px] font-semibold">
+              {t("footer.account")}
+            </h3>
+
             <ul className="flex flex-col gap-3">
-              {account.map((item) => (
-                <li key={item} className="text-[13px] text-neutral-400 hover:text-white transition-colors cursor-pointer">
+              {t("footer.accountItems", { returnObjects: true }).map((item) => (
+                <li
+                  key={item}
+                  className="text-[13px] text-neutral-400 hover:text-white transition-colors cursor-pointer"
+                >
                   {item}
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Quick Link */}
+          {/* Quick Links */}
           <div className="flex flex-col gap-4">
-            <h3 className="text-[14px] font-semibold">Quick Link</h3>
+            <h3 className="text-[14px] font-semibold">
+              {t("footer.quickLinks")}
+            </h3>
+
             <ul className="flex flex-col gap-3">
-              {quickLinks.map((item) => (
-                <li key={item} className="text-[13px] text-neutral-400 hover:text-white transition-colors cursor-pointer">
+              {t("footer.quickItems", { returnObjects: true }).map((item) => (
+                <li
+                  key={item}
+                  className="text-[13px] text-neutral-400 hover:text-white transition-colors cursor-pointer"
+                >
                   {item}
                 </li>
               ))}
             </ul>
           </div>
 
+          {/* Social */}
           <div className="flex flex-col gap-4">
-            <h3 className="text-[14px] font-semibold">Social</h3>
+            <h3 className="text-[14px] font-semibold">
+              {t("footer.social")}
+            </h3>
+
             <div className="flex items-center gap-4 flex-wrap">
               {socials.map(({ src, label }) => (
-                <button key={label} aria-label={label} className="opacity-80 hover:opacity-100 transition-opacity">
+                <button
+                  key={label}
+                  aria-label={label}
+                  className="opacity-80 hover:opacity-100 transition-opacity"
+                >
                   <img src={src} alt={label} className="w-5 h-5 object-contain" />
                 </button>
               ))}
@@ -90,11 +120,14 @@ export default memo(function Footer() {
 
         </div>
 
+        {/* Bottom */}
         <div className="mt-12 pt-6 border-t border-neutral-800 text-center">
-          <p className="text-[12px] text-neutral-500">© Copyright Rimel 2022. All right reserved</p>
+          <p className="text-[12px] text-neutral-500">
+            {t("footer.copyright")}
+          </p>
         </div>
 
       </div>
     </footer>
   );
-})
+});

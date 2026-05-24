@@ -2,24 +2,34 @@ import React, { memo, useState } from "react";
 import { Link } from "react-router-dom";
 import { Phone, Mail } from "lucide-react";
 import { Toaster, toast } from "sonner";
+import { useTranslation } from "react-i18next";
 
 export default memo(function Contact() {
-  const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" });
+  const { t } = useTranslation();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+  });
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const handleSubmit = () => {
     if (!form.name || !form.email || !form.message) {
-      toast.error("Please fill in all required fields.", {
+      toast.error(t("contact.toast.error"), {
         position: "top-center",
       });
       return;
     }
 
-    toast.success("Message sent successfully!", {
-      description: "We'll get back to you within 24 hours.",
+    toast.success(t("contact.toast.success"), {
+      description: t("contact.toast.successDesc"),
       position: "top-center",
     });
 
@@ -34,9 +44,13 @@ export default memo(function Contact() {
 
         {/* BREADCRUMB */}
         <div className="flex items-center gap-2 text-sm text-gray-400 dark:text-neutral-400 mb-8 sm:mb-12">
-          <Link to="/" className="hover:text-black dark:hover:text-white transition">Home</Link>
+          <Link to="/" className="hover:text-black dark:hover:text-white transition">
+            {t("contact.breadcrumb.home")}
+          </Link>
           <span>/</span>
-          <span className="text-black dark:text-white font-medium">Contact</span>
+          <span className="text-black dark:text-white font-medium">
+            {t("contact.breadcrumb.contact")}
+          </span>
         </div>
 
         {/* MAIN CARD ROW */}
@@ -52,15 +66,16 @@ export default memo(function Contact() {
                   <Phone size={18} />
                 </div>
                 <span className="font-semibold text-[16px] text-gray-900 dark:text-white">
-                  Call To Us
+                  {t("contact.call.title")}
                 </span>
               </div>
 
               <p className="text-sm text-gray-600 dark:text-neutral-400 mb-2">
-                We are available 24/7, 7 days a week.
+                {t("contact.call.desc")}
               </p>
+
               <p className="text-sm text-gray-800 dark:text-neutral-200">
-                Phone: +8801611112222
+                {t("contact.call.phone")}
               </p>
             </div>
 
@@ -71,20 +86,20 @@ export default memo(function Contact() {
                   <Mail size={18} />
                 </div>
                 <span className="font-semibold text-[16px] text-gray-900 dark:text-white">
-                  Write To Us
+                  {t("contact.email.title")}
                 </span>
               </div>
 
               <p className="text-sm text-gray-600 dark:text-neutral-400 mb-3">
-                Fill out our form and we will contact you within 24 hours.
+                {t("contact.email.desc")}
               </p>
 
               <p className="text-sm text-gray-800 dark:text-neutral-200 mb-2">
-                Emails: customer@exclusive.com
+                {t("contact.email.one")}
               </p>
 
               <p className="text-sm text-gray-800 dark:text-neutral-200">
-                Emails: support@exclusive.com
+                {t("contact.email.two")}
               </p>
             </div>
           </div>
@@ -98,7 +113,7 @@ export default memo(function Contact() {
               <input
                 type="text"
                 name="name"
-                placeholder="Name *"
+                placeholder={t("contact.form.name")}
                 value={form.name}
                 onChange={handleChange}
                 className="flex-1 border border-gray-300 dark:border-neutral-700 bg-white dark:bg-[#0a0a0a] rounded-lg px-4 py-3 text-sm outline-none focus:border-[#DB4444] transition text-black dark:text-white placeholder-gray-400 dark:placeholder-neutral-500"
@@ -107,7 +122,7 @@ export default memo(function Contact() {
               <input
                 type="email"
                 name="email"
-                placeholder="Email *"
+                placeholder={t("contact.form.email")}
                 value={form.email}
                 onChange={handleChange}
                 className="flex-1 border border-gray-300 dark:border-neutral-700 bg-white dark:bg-[#0a0a0a] rounded-lg px-4 py-3 text-sm outline-none focus:border-[#DB4444] transition text-black dark:text-white placeholder-gray-400 dark:placeholder-neutral-500"
@@ -116,7 +131,7 @@ export default memo(function Contact() {
               <input
                 type="tel"
                 name="phone"
-                placeholder="Phone"
+                placeholder={t("contact.form.phone")}
                 value={form.phone}
                 onChange={handleChange}
                 className="flex-1 border border-gray-300 dark:border-neutral-700 bg-white dark:bg-[#0a0a0a] rounded-lg px-4 py-3 text-sm outline-none focus:border-[#DB4444] transition text-black dark:text-white placeholder-gray-400 dark:placeholder-neutral-500"
@@ -126,7 +141,7 @@ export default memo(function Contact() {
             {/* TEXTAREA */}
             <textarea
               name="message"
-              placeholder="Your Message *"
+              placeholder={t("contact.form.message")}
               value={form.message}
               onChange={handleChange}
               rows={8}
@@ -139,7 +154,7 @@ export default memo(function Contact() {
                 onClick={handleSubmit}
                 className="bg-[#DB4444] hover:bg-[#c73b3b] active:scale-95 text-white px-10 py-3 rounded-lg text-sm font-medium transition shadow-md hover:shadow-lg"
               >
-                Send Message
+                {t("contact.form.submit")}
               </button>
             </div>
 

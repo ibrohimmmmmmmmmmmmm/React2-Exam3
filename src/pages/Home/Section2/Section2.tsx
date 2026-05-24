@@ -5,7 +5,7 @@ export default memo(function Section2() {
   return (
     <>
       <FlashSalesHeader />
-      <ProductsCatalog />
+      
     </>
   )
 })

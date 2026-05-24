@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
-import { Checkbox } from '@/components/ui/checkbox'
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
-import { Label } from '@/components/ui/label'
-import { Slider } from '@/components/ui/slider'
-import { Button } from '@/components/ui/button'
+
 import { ChevronUp } from 'lucide-react'
+import { Checkbox } from '../../components/ui/checkbox';
+import { Label } from '../../components/ui/label';
+import { Slider } from '../../components/ui/slider';
+import { Button } from '../../components/ui/button';
+import { RadioGroup, RadioGroupItem } from '../../components/ui/radio-group';
 
 // ── Stars ──────────────────────────────────────────────────────────────────
 function Stars({ filled }: { filled: number }) {

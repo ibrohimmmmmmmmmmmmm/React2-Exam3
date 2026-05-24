@@ -4,10 +4,13 @@ import { Search, ChevronRight, ArrowRight } from 'lucide-react'
 import HeroSwiper from './Swiper'
 import { fetchCategories, setSelectedCategory } from '../../../features/categorySlice'
 import { useAppDispatch, useAppSelector } from '../../../app/hooks'
+import { useTranslation } from 'react-i18next'
 
 export default memo(function Section1() {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
+  const { t } = useTranslation()
+
   const { categories, loading, error } = useAppSelector((state) => state.category)
   const [search, setSearch] = useState('')
 
@@ -26,14 +29,14 @@ export default memo(function Section1() {
 
   return (
     <>
-      {/* ── MOBILE layout ── */}
+      {/* ── MOBILE ── */}
       <div className='flex flex-col sm:hidden px-4 pt-4 pb-6'>
 
-        {/* Search bar */}
+        {/* Search */}
         <div className='flex items-center border border-gray-300 dark:border-neutral-700 rounded-sm px-3 py-2 mb-4 bg-white dark:bg-neutral-900'>
           <input
             type='text'
-            placeholder='Search'
+            placeholder={t('section1.search')}
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className='flex-1 text-sm outline-none text-gray-700 dark:text-neutral-200 placeholder-gray-400 dark:placeholder-neutral-500 bg-transparent'
@@ -41,9 +44,9 @@ export default memo(function Section1() {
           <Search size={18} className='text-gray-500 dark:text-neutral-400 ml-2 flex-shrink-0' />
         </div>
 
-        {/* Category chips grid */}
-        {loading && <p className='text-sm text-gray-400 dark:text-neutral-500'>Loading...</p>}
-        {error && <p className='text-sm text-red-500'>Error loading categories</p>}
+        {/* Categories */}
+        {loading && <p className='text-sm text-gray-400 dark:text-neutral-500'>{t('section1.loading')}</p>}
+        {error && <p className='text-sm text-red-500'>{t('section1.error')}</p>}
 
         {!loading && !error && (
           <div className='flex flex-wrap gap-2 mb-6'>
@@ -67,13 +70,9 @@ export default memo(function Section1() {
           </div>
         )}
 
-        {/* iPhone promo banner */}
-        <div className='
-          relative w-full rounded-sm overflow-hidden min-h-[320px] flex flex-col
-          bg-black dark:bg-neutral-950
-        '>
+        {/* Banner */}
+        <div className='relative w-full rounded-sm overflow-hidden min-h-[320px] flex flex-col bg-black dark:bg-neutral-950'>
 
-          {/* Text content */}
           <div className='px-6 pt-8 pb-4 z-10'>
             <div className='flex items-center gap-2 mb-3'>
               <svg viewBox='0 0 814 1000' className='w-5 h-5 fill-white'>
@@ -81,28 +80,23 @@ export default memo(function Section1() {
               </svg>
 
               <span className='text-white/80 dark:text-white/70 text-xs'>
-                iPhone 14 Series
+                {t('section1.banner.subtitle')}
               </span>
             </div>
 
             <h3 className='text-white text-3xl font-bold leading-tight mb-4'>
-              Up to 10% off<br />Voucher
+              {t('section1.banner.titleLine1')}<br />
+              {t('section1.banner.titleLine2')}
             </h3>
 
             <button
               onClick={() => navigate('/products')}
-              className='
-                flex items-center gap-2 text-white text-sm font-semibold
-                border-b border-white pb-0.5 w-fit
-                hover:text-gray-300 dark:hover:text-neutral-300
-                transition-colors
-              '
+              className='flex items-center gap-2 text-white text-sm font-semibold border-b border-white pb-0.5 w-fit hover:text-gray-300 dark:hover:text-neutral-300 transition-colors'
             >
-              Shop Now <ArrowRight size={16} />
+              {t('section1.banner.button')} <ArrowRight size={16} />
             </button>
           </div>
 
-          {/* iPhone image */}
           <div className='flex justify-center mt-2 pb-0'>
             <img
               src='/images/iphone14.png'
@@ -113,11 +107,12 @@ export default memo(function Section1() {
         </div>
       </div>
 
-      {/* ── DESKTOP layout (unchanged) ── */}
+      {/* ── DESKTOP (unchanged logic, only text replaced) ── */}
       <div className='hidden sm:flex items-center justify-between py-15 px-30'>
         <div className='w-[238px] flex flex-col gap-4'>
-          {loading && <p>Loading categories...</p>}
-          {error && <p className='text-red-500'>Error loading categories</p>}
+          {loading && <p>{t('section1.loadingCategories')}</p>}
+          {error && <p className='text-red-500'>{t('section1.error')}</p>}
+
           {!loading && !error && categories.map((cat) => (
             <div
               key={cat.id}

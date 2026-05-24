@@ -11,20 +11,22 @@ import {
   Headphones,
   Gamepad2
 } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import 'swiper/css'
 
 const categories = [
-  { label: 'Phones', Icon: Smartphone },
-  { label: 'Computers', Icon: Monitor },
-  { label: 'SmartWatch', Icon: Watch },
-  { label: 'Camera', Icon: Camera },
-  { label: 'HeadPhones', Icon: Headphones },
-  { label: 'Gaming', Icon: Gamepad2 },
+  { key: 'phones', Icon: Smartphone },
+  { key: 'computers', Icon: Monitor },
+  { key: 'smartWatch', Icon: Watch },
+  { key: 'camera', Icon: Camera },
+  { key: 'headphones', Icon: Headphones },
+  { key: 'gaming', Icon: Gamepad2 },
 ]
 
 export default function BrowseByCategory() {
   const swiperRef = useRef<SwiperType | null>(null)
   const [activeIndex, setActiveIndex] = useState<number | null>(null)
+  const { t } = useTranslation()
 
   return (
     <div className='px-4 sm:px-6 md:px-[100px] py-10'>
@@ -33,14 +35,14 @@ export default function BrowseByCategory() {
       <div className='flex items-center gap-2 mb-3'>
         <div className='w-[14px] h-[36px] bg-[#DB4444]' />
         <span className='text-[#DB4444] font-medium text-[15px]'>
-          Categories
+          {t('browseCategory.label')}
         </span>
       </div>
 
       {/* Title row + arrows */}
       <div className='flex items-center justify-between mb-8'>
         <h2 className='text-2xl sm:text-[28px] font-bold text-gray-900 dark:text-white'>
-          Browse By Category
+          {t('browseCategory.title')}
         </h2>
 
         <div className='flex items-center gap-2'>
@@ -84,11 +86,11 @@ export default function BrowseByCategory() {
           1280: { slidesPerView: 6 },
         }}
       >
-        {categories.map(({ label, Icon }, i) => {
+        {categories.map(({ key, Icon }, i) => {
           const isActive = activeIndex === i
 
           return (
-            <SwiperSlide key={label}>
+            <SwiperSlide key={key}>
               <button
                 onClick={() => setActiveIndex(isActive ? null : i)}
                 className={`
@@ -103,7 +105,9 @@ export default function BrowseByCategory() {
                 `}
               >
                 <Icon size={40} strokeWidth={1.3} />
-                <span className='text-sm font-medium'>{label}</span>
+                <span className='text-sm font-medium'>
+                  {t(`browseCategory.items.${key}`)}
+                </span>
               </button>
             </SwiperSlide>
           )

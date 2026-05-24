@@ -1,5 +1,6 @@
 import React, { memo, useEffect, useState } from 'react'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 
 interface FlashSalesHeaderProps {
   onPrev?: () => void
@@ -26,7 +27,7 @@ export default memo(function FlashSalesHeader({
   const hours   = Math.floor((remaining % 86400) / 3600)
   const minutes = Math.floor((remaining % 3600) / 60)
   const seconds = remaining % 60
-
+  const { t } = useTranslation()
   return (
     <div className='flex flex-col sm:flex-row sm:items-center sm:justify-between px-4 sm:px-16 py-4 gap-4 sm:gap-0 bg-white dark:bg-gray-950 transition-colors duration-300'>
 
@@ -37,9 +38,9 @@ export default memo(function FlashSalesHeader({
         <div>
           <div className='flex items-center gap-2 mb-1 sm:mb-2'>
             <div className='w-[12px] h-[32px] sm:w-[14px] sm:h-[36px] bg-[#DB4444] rounded' />
-            <span className='text-[#DB4444] font-medium text-sm sm:text-[15px]'>Today's</span>
+            <span className='text-[#DB4444] font-medium text-sm sm:text-[15px]'>{t("today")}</span>
           </div>
-          <h2 className='text-xl sm:text-[26px] font-semibold dark:text-white'>Flash Sales</h2>
+          <h2 className='text-xl sm:text-[26px] font-semibold dark:text-white'>{t("flashSales")}</h2>
         </div>
 
         {/* Countdown */}

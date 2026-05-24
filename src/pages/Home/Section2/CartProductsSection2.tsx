@@ -8,6 +8,8 @@ import { useAppDispatch, useAppSelector } from '../../../app/hooks'
 import { axiosRequest } from '../../../utils/token'
 import { addToCart } from '../../../features/cartSlice'
 import { toggleWishlist } from '../../../features/wishlistSlice'
+import { useTranslation } from 'react-i18next'
+import { t } from 'i18next'
 
 type Product = {
   id: number
@@ -20,6 +22,7 @@ type Product = {
 }
 
 function Stars({ rating = 0 }: { rating?: number }) {
+  const {t} = useTranslation()
   return (
     <div className='flex gap-0.5'>
       {[1, 2, 3, 4, 5].map((i) => (
@@ -52,7 +55,6 @@ function ProductCard({ p, isWishlisted, onWishlist, onView, onCart }: any) {
   return (
     <div className='group relative rounded-2xl overflow-hidden bg-white dark:bg-neutral-900 border border-gray-100 dark:border-neutral-800 shadow-sm hover:shadow-xl transition-all duration-300'>
       
-      {/* IMAGE */}
       <div className='relative h-[190px] sm:h-[230px] bg-gradient-to-br from-gray-50 to-gray-100 dark:from-neutral-800 dark:to-neutral-900 flex items-center justify-center overflow-hidden'>
         
         {discountPercent !== null && (
@@ -73,50 +75,34 @@ function ProductCard({ p, isWishlisted, onWishlist, onView, onCart }: any) {
           </span>
         )}
 
-        {/* ACTIONS */}
         <div className='absolute right-3 top-3 flex flex-col gap-2'>
-          <button
-            onClick={(e) => {
-              e.stopPropagation()
-              onWishlist()
-            }}
+          <button onClick={(e) => { e.stopPropagation(); onWishlist() }}
             className={`w-9 h-9 rounded-full flex items-center justify-center transition-all duration-200 shadow-md
-              ${
-                isWishlisted
-                  ? 'bg-[#DB4444] text-white'
-                  : 'bg-white/90 dark:bg-neutral-800 text-gray-700 dark:text-gray-200 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 hover:bg-[#DB4444] hover:text-white'
-              }`}
-          >
+            ${
+              isWishlisted
+                ? 'bg-[#DB4444] text-white'
+                : 'bg-white/90 dark:bg-neutral-800 text-gray-700 dark:text-gray-200 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 hover:bg-[#DB4444] hover:text-white'
+            }`}>
             <Heart size={16} fill={isWishlisted ? 'currentColor' : 'none'} />
           </button>
 
-          <button
-            onClick={(e) => {
-              e.stopPropagation()
-              onView()
-            }}
-            className='w-9 h-9 rounded-full bg-white/90 dark:bg-neutral-800 text-gray-700 dark:text-gray-200 flex items-center justify-center shadow-md opacity-100 sm:opacity-0 sm:group-hover:opacity-100 hover:bg-gray-900 dark:hover:bg-white hover:text-white dark:hover:text-black transition'
-          >
+          <button onClick={(e) => { e.stopPropagation(); onView() }}
+            className='w-9 h-9 rounded-full bg-white/90 dark:bg-neutral-800 text-gray-700 dark:text-gray-200 flex items-center justify-center shadow-md opacity-100 sm:opacity-0 sm:group-hover:opacity-100 hover:bg-gray-900 dark:hover:bg-white hover:text-white dark:hover:text-black transition'>
             <Eye size={16} />
           </button>
         </div>
 
-        {/* CART */}
         <button
-          onClick={(e) => {
-            e.stopPropagation()
-            onCart()
-          }}
+          onClick={(e) => { e.stopPropagation(); onCart() }}
           className='absolute bottom-0 left-0 right-0 bg-black/90 dark:bg-white text-white dark:text-black text-sm font-medium py-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300'
         >
-          Add To Cart
+          {t('section4.addToCart')}
         </button>
       </div>
 
-      {/* INFO */}
       <div className='p-3 sm:p-4'>
         <p className='text-sm font-medium text-gray-900 dark:text-gray-100 line-clamp-1'>
-          {p.productName ?? 'Product'}
+          {p.productName ?? t('section4.productFallback')}
         </p>
 
         <div className='flex items-center gap-2 mt-1.5'>
@@ -145,6 +131,8 @@ function ProductCard({ p, isWishlisted, onWishlist, onView, onCart }: any) {
 const Section4 = memo(() => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
+  const { t } = useTranslation()
+
   const wishlistItems = useAppSelector((state) => state.wishlist.items)
   const wishlistedIds = useMemo(
     () => new Set(wishlistItems.map((i) => i.id)),
@@ -178,13 +166,13 @@ const Section4 = memo(() => {
       <div className='flex items-center gap-2 mb-3'>
         <div className='w-[14px] h-[36px] bg-[#DB4444] rounded-full shadow-md' />
         <span className='text-[#DB4444] font-medium text-[15px]'>
-          This Month
+          {t('section4.label')}
         </span>
       </div>
 
       <div className='flex items-center justify-between mb-8'>
         <p className='text-2xl sm:text-4xl font-semibold text-gray-900 dark:text-white'>
-          Best Selling Products
+          {t('section4.title')}
         </p>
 
         <div className='flex items-center gap-2'>
@@ -227,7 +215,7 @@ const Section4 = memo(() => {
               onClick={() => setShowAll(false)}
               className='px-12 py-3 bg-[#DB4444] hover:bg-red-600 text-white rounded-full shadow-md transition'
             >
-              Show Less
+              {t('section4.showLess')}
             </button>
           </div>
         </div>
@@ -260,7 +248,7 @@ const Section4 = memo(() => {
               onClick={() => setShowAll(true)}
               className='px-12 py-3 bg-[#DB4444] hover:bg-red-600 text-white rounded-full shadow-md transition'
             >
-              View All Products
+              {t('section4.viewAll')}
             </button>
           </div>
         </div>
