@@ -17,13 +17,13 @@ export default function Wishlist() {
     const fetchRecommendations = async () => {
       setRecLoading(true)
       try {
-        const resp = await axios.get<any>(
+        const resp = await axios.get<{ data: { products: Product[] } }>(
           `https://fastcard-1-o23z.onrender.com/api/Product/get-products`
         )
 
         const allProducts = resp.data?.data?.products ?? []
         const wishlistIds = new Set(wishlistItems.map(item => item.id))
-        const filtered = allProducts.filter((p: any) => !wishlistIds.has(p.id))
+        const filtered = allProducts.filter((p) => !wishlistIds.has(p.id))
 
         setRecommendations(filtered.slice(0, 4))
       } catch (err) {

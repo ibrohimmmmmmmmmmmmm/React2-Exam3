@@ -8,6 +8,7 @@ import {
 import Layout from "./Layout/Layout";
 import ErrorPage from "./components/ErrorPage/ErrorPage";
 import Loading from "./components/Loading/Loading";
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
 import {
   Home,
@@ -78,8 +79,18 @@ export default function App() {
         {
           path: "account",
           element: (
+            <ProtectedRoute>
+              <Suspense fallback={<Loading />}>
+                <Account />
+              </Suspense>
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "products",
+          element: (
             <Suspense fallback={<Loading />}>
-              <Account />
+              <ProductsCatalog />
             </Suspense>
           ),
         },
@@ -102,25 +113,31 @@ export default function App() {
         {
           path: "cart",
           element: (
-            <Suspense fallback={<Loading />}>
-              <Cart />
-            </Suspense>
+            <ProtectedRoute>
+              <Suspense fallback={<Loading />}>
+                <Cart />
+              </Suspense>
+            </ProtectedRoute>
           ),
         },
         {
           path: "checkout",
           element: (
-            <Suspense fallback={<Loading />}>
-              <Checkout />
-            </Suspense>
+            <ProtectedRoute>
+              <Suspense fallback={<Loading />}>
+                <Checkout />
+              </Suspense>
+            </ProtectedRoute>
           ),
         },
         {
           path: "wishlist",
           element: (
-            <Suspense fallback={<Loading />}>
-              <Wishlist />
-            </Suspense>
+            <ProtectedRoute>
+              <Suspense fallback={<Loading />}>
+                <Wishlist />
+              </Suspense>
+            </ProtectedRoute>
           ),
         },
       ],

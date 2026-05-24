@@ -8,6 +8,7 @@ import './index.css'
 import "../src/lib/i18n.ts"
 import { store } from './app/store.ts'
 import { ThemeProvider } from './components/ui/theme-provider.tsx'
+import { AuthProvider } from './context/AuthContext'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -17,7 +18,9 @@ createRoot(document.getElementById('root')!).render(
         defaultTheme="system"
         enableSystem
       >
-        <App />
+        <AuthProvider>
+          <App />
+        </AuthProvider>
       </ThemeProvider>
     </Provider>
   </StrictMode>

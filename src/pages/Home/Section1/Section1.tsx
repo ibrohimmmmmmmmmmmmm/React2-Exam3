@@ -11,8 +11,13 @@ export default memo(function Section1() {
   const dispatch = useAppDispatch()
   const { t } = useTranslation()
 
-  const { categories, loading, error } = useAppSelector((state) => state.category)
+  const { categories, loading, error, selectedCategoryId } = useAppSelector((state) => state.category)
   const [search, setSearch] = useState('')
+  const [activeCategoryId, setActiveCategoryId] = useState<number | null>(selectedCategoryId)
+
+  useEffect(() => {
+    setActiveCategoryId(selectedCategoryId)
+  }, [selectedCategoryId])
 
   useEffect(() => {
     dispatch(fetchCategories())
@@ -20,6 +25,7 @@ export default memo(function Section1() {
 
   const handleCategoryClick = (id: number) => {
     dispatch(setSelectedCategory(id))
+    setActiveCategoryId(id)
     navigate(`/products/${id}`)
   }
 
@@ -45,8 +51,17 @@ export default memo(function Section1() {
         </div>
 
         {/* Categories */}
-        {loading && <p className='text-sm text-gray-400 dark:text-neutral-500'>{t('section1.loading')}</p>}
-        {error && <p className='text-sm text-red-500'>{t('section1.error')}</p>}
+        {loading && (
+          <p className='text-sm text-gray-400 dark:text-neutral-500'>
+            {t('section1.loading')}
+          </p>
+        )}
+
+        {error && (
+          <p className='text-sm text-red-500'>
+            {t('section1.error')}
+          </p>
+        )}
 
         {!loading && !error && (
           <div className='flex flex-wrap gap-2 mb-6'>
@@ -55,7 +70,7 @@ export default memo(function Section1() {
                 key={cat.id}
                 onClick={() => handleCategoryClick(cat.id)}
                 className='
-                  flex items-center gap-1 px-3 py-1.5
+                  flex items-center  
                   border border-gray-300 dark:border-neutral-700
                   rounded-sm text-sm text-gray-700 dark:text-neutral-300
                   hover:border-[#DB4444] hover:text-[#DB4444]
@@ -107,24 +122,35 @@ export default memo(function Section1() {
         </div>
       </div>
 
-      {/* ── DESKTOP (unchanged logic, only text replaced) ── */}
-      <div className='hidden sm:flex items-center justify-between py-15 px-30'>
-        <div className='w-[238px] flex flex-col gap-4'>
-          {loading && <p>{t('section1.loadingCategories')}</p>}
-          {error && <p className='text-red-500'>{t('section1.error')}</p>}
+      {/* ── DESKTOP ── */}
+      <div className='hidden sm:flex items-start justify-between gap-8 py-10 px-8'>
 
-          {!loading && !error && categories.map((cat) => (
-            <div
-              key={cat.id}
-              onClick={() => handleCategoryClick(cat.id)}
-              className='cursor-pointer hover:text-red-500 transition-colors flex justify-between items-center'
-            >
-              <p>{cat.categoryName}</p>
-            </div>
-          ))}
+        <div className='w-[220px] flex flex-col gap-3'>
+          {loading && (
+            <p>{t('section1.loadingCategories')}</p>
+          )}
+
+          {error && (
+            <p className='text-red-500'>
+              {t('section1.error')}
+            </p>
+          )}
+
+          {!loading && !error && categories.map((cat) => {
+            const active = activeCategoryId === cat.id
+            return (
+              <button
+                key={cat.id}
+                onClick={() => handleCategoryClick(cat.id)}
+                className={`text-left rounded-xl px-3 py-3 transition-colors ${active ? 'bg-red-50 text-[#DB4444] font-semibold dark:bg-red-500/10' : 'text-gray-700 dark:text-gray-300 hover:text-[#DB4444] hover:bg-gray-100 dark:hover:bg-neutral-800'}`}
+              >
+                {cat.categoryName}
+              </button>
+            )
+          })}
         </div>
 
-        <div className='w-[900px]'>
+        <div className='flex-1 max-w-[900px]'>
           <HeroSwiper />
         </div>
       </div>

@@ -43,7 +43,15 @@ function Stars({ rating = 0 }: { rating?: number }) {
   )
 }
 
-function ProductCard({ p, isWishlisted, onWishlist, onView, onCart }: any) {
+interface ProductCardProps {
+  p: Product
+  isWishlisted: boolean
+  onWishlist: () => void
+  onView: () => void
+  onCart: () => void
+}
+
+function ProductCard({ p, isWishlisted, onWishlist, onView, onCart }: ProductCardProps) {
   const discountPercent =
     p.hasDiscount && p.discountPrice && p.price
       ? Math.round(((p.price - p.discountPrice) / p.price) * 100)

@@ -42,19 +42,7 @@
     "orders": "Мои заказы",
     "logout": "Выйти"
   },
-  "section1": {
-    "search": "Поиск",
-    "loading": "Загрузка...",
-    "loadingCategories": "Загрузка категорий...",
-    "error": "Ошибка загрузки категорий",
 
-    "banner": {
-      "subtitle": "Серия iPhone 14",
-      "titleLine1": "До 10% скидки",
-      "titleLine2": "Купон",
-      "button": "Купить сейчас"
-    }
-  },
   "browseCategory": {
     "label": "Категории",
     "title": "Просмотр по категориям",
@@ -66,12 +54,6 @@
       "headphones": "Наушники",
       "gaming": "Игры"
     }
-  },
-  "hero": {
-    "subtitle": "Серия iPhone 14",
-    "titleLine1": "До 10% скидки",
-    "titleLine2": "Купон",
-    "button": "Купить сейчас"
   },
   "today": "Сегодняшние",
   "flashSales": "Блиц-продажи",
@@ -277,9 +259,9 @@
   },
 
   "hero": {
-    "series": "Серия iPhone 14",
-    "discount": "Скидка до 10%",
-    "shop": "Купить сейчас"
+    "subtitle": "Серия iPhone 14",
+    "title": "Скидка до 10%",
+    "button": "Купить сейчас"
   },
   
   "account": {
@@ -329,6 +311,19 @@
 
     "placeholder": {
       "comingSoon": "скоро появится."
+    }
+  },
+  "section1": {
+    "search": "Поиск категорий...",
+    "loading": "Загрузка...",
+    "loadingCategories": "Загрузка категорий...",
+    "error": "Что-то пошло не так",
+
+    "banner": {
+      "subtitle": "Серия iPhone 14",
+      "titleLine1": "Скидка до 10%",
+      "titleLine2": "на купон",
+      "button": "Купить сейчас"
     }
   }
 

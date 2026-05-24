@@ -6,7 +6,8 @@ import {
   UserIcon,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { getToken, RemoveToken } from "../../../utils/token";
+import { getToken } from "../../../utils/token";
+import { useAuth } from "../../../context/AuthContext";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -19,9 +20,10 @@ import { useTranslation } from "react-i18next";
 export default memo(function UserDropdown() {
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const { logout: authLogout } = useAuth();
 
   function logout() {
-    RemoveToken();
+    authLogout();
     navigate("/signup2");
     window.location.reload();
   }

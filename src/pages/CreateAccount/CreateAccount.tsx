@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import { memo } from 'react'
 import { Button } from '../../components/ui/button'
 import img from "@/assets/Icon-Google (1).png"
 import { axiosRequest } from '../../utils/token'
@@ -6,6 +6,14 @@ import { Link, useNavigate } from 'react-router-dom'
 import { Formik, Form } from 'formik'
 import * as Yup from 'yup'
 import { InputUserName } from '../../components/inputUserName/inputUserName'
+
+interface RegisterValues {
+  userName: string
+  email: string
+  phoneNumber: string
+  password: string
+  confirmPassword: string
+}
 
 const validationSchema = Yup.object({
   userName: Yup.string()
@@ -32,23 +40,29 @@ const validationSchema = Yup.object({
 export default memo(function CreateAccount() {
   const navigate = useNavigate()
 
-  async function register(values: any) {
-  try {
-    const response = await axiosRequest.post(
-      "Account/register",
-      values
-    )
+  async function register(values: RegisterValues) {
+    try {
+      const response = await axiosRequest.post(
+        "Account/register",
+        values
+      )
 
-    console.log(response)
-
-    if (response.status >= 200 && response.status < 300) {
-      navigate("/signup2")
+      if (response.status >= 200 && response.status < 300) {
+        localStorage.setItem(
+          'user_profile',
+          JSON.stringify({
+            firstName: values.userName || 'User',
+            lastName: '',
+            email: values.email,
+            streetAddress: '',
+          })
+        )
+        navigate("/signup2")
+      }
+    } catch (error) {
+      console.error(error)
     }
-
-  } catch (error) {
-    console.error(error)
   }
-}
 
   return (
     <div className='min-h-screen flex items-center justify-center py-10 lg:py-25 px-4 bg-white overflow-x-hidden'>

@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from '../../app/hooks'
 import { toggleWishlist } from '../../features/wishlistSlice'
 import { addToCart } from '../../features/cartSlice'
 
-type ProductDetail = {
+type Product = {
   id: number
   productName?: string
   price?: number
@@ -20,18 +20,9 @@ type ProductDetail = {
   brandId?: number
   description?: string
   stock?: number
-  [key: string]: any
 }
 
-type RelatedProduct = {
-  id: number
-  productName?: string
-  price?: number
-  discountPrice?: number
-  hasDiscount?: boolean
-  image?: string | null
-  rating?: number
-}
+type RelatedProduct = Omit<Product, 'categoryId' | 'categoryName' | 'brandId' | 'description' | 'stock'>
 
 const AVAILABLE_COLORS = ['#000000', '#FF0000', '#FFFFFF', '#0000FF']
 const AVAILABLE_SIZES = ['XS', 'S', 'M', 'L', 'XL']
@@ -62,14 +53,14 @@ export default function ProductDetail() {
       setError(null)
 
       try {
-        const resp = await axios.get(
+        const resp = await axios.get<{ data: { products: Product[] } }>(
           `https://fastcard-1-o23z.onrender.com/api/Product/get-products`
         )
 
         const allProducts = resp.data?.data?.products ?? []
 
         const currentProduct = allProducts.find(
-          (p: any) => p.id === parseInt(id)
+          (p) => p.id === Number(id)
         )
 
         if (currentProduct) {
@@ -86,16 +77,17 @@ export default function ProductDetail() {
         if (currentProduct?.categoryId) {
           const related = allProducts
             .filter(
-              (p: any) =>
+              (p) =>
                 p.categoryId === currentProduct.categoryId &&
-                p.id !== parseInt(id)
+                p.id !== Number(id)
             )
             .slice(0, 4)
 
           setRelatedProducts(related)
         }
-      } catch (err: any) {
-        setError(err?.message || 'Failed to load product details')
+      } catch (err) {
+        const errorObj = err instanceof Error ? err : new Error('Failed to load product details')
+        setError(errorObj.message)
       } finally {
         setLoading(false)
       }

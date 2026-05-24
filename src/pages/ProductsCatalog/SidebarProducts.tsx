@@ -24,8 +24,8 @@ function Stars({ filled }: { filled: number }) {
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   const [open, setOpen] = useState(true)
   return (
-    <div className="border-b border-gray-200 py-5">
-      <button onClick={() => setOpen(o => !o)} className="flex items-center justify-between w-full mb-4">
+    <div className="border-b border-gray-200 py-4">
+      <button onClick={() => setOpen(o => !o)} className="flex items-center justify-between w-full mb-3">
         <span className="text-sm font-bold text-gray-900">{title}</span>
         <ChevronUp className={`w-4 h-4 text-gray-500 transition-transform ${open ? '' : 'rotate-180'}`} />
       </button>
@@ -47,20 +47,39 @@ const CONDITIONS = [
 
 type Filters = {
   category: string | null
+  categoryId: number | null
   brands: string[]
   priceRange: [number, number]
   condition: string
   ratings: number[]
+  features: string[]
 }
 
 type SidebarProps = {
   filters: Filters
   onFiltersChange: (filters: Filters) => void
+  selectedCategoryName?: string
 }
 
-export default function ProductsSidebar({ filters, onFiltersChange }: SidebarProps) {
+export default function ProductsSidebar({ filters, onFiltersChange, selectedCategoryName }: SidebarProps) {
   const handleCategoryChange = (cat: string | null) => {
-    onFiltersChange({ ...filters, category: cat })
+    onFiltersChange({ ...filters, category: cat, categoryId: null })
+  }
+
+  const handleBrandChange = (brand: string) => {
+    const newBrands = filters.brands.includes(brand)
+      ? filters.brands.filter((b) => b !== brand)
+      : [...filters.brands, brand]
+
+    onFiltersChange({ ...filters, brands: newBrands })
+  }
+
+  const handleFeatureChange = (feature: string) => {
+    const newFeatures = filters.features.includes(feature)
+      ? filters.features.filter((f) => f !== feature)
+      : [...filters.features, feature]
+
+    onFiltersChange({ ...filters, features: newFeatures })
   }
 
   const handlePriceChange = (range: [number, number]) => {
@@ -83,25 +102,28 @@ export default function ProductsSidebar({ filters, onFiltersChange }: SidebarPro
 
       {/* Category */}
       <Section title="Category">
-        <ul className="flex flex-col gap-3">
+        <ul className="flex flex-col gap-2">
           <li>
             <button
               onClick={() => handleCategoryChange(null)}
-              className={`text-sm w-full text-left ${filters.category === null ? 'text-[#DB4444] font-semibold' : 'text-gray-500 hover:text-[#DB4444]'}`}
+              className={`text-sm w-full text-left ${!filters.category && !selectedCategoryName ? 'text-[#DB4444] font-semibold' : 'text-gray-500 hover:text-[#DB4444]'}`}
             >
               All products
             </button>
           </li>
-          {CATEGORIES.map(cat => (
-            <li key={cat}>
-              <button
-                onClick={() => handleCategoryChange(cat)}
-                className={`text-sm w-full text-left ${filters.category === cat ? 'text-[#DB4444] font-semibold' : 'text-gray-500 hover:text-[#DB4444]'}`}
-              >
-                {cat}
-              </button>
-            </li>
-          ))}
+          {CATEGORIES.map(cat => {
+            const isActive = selectedCategoryName === cat || filters.category === cat
+            return (
+              <li key={cat}>
+                <button
+                  onClick={() => handleCategoryChange(cat)}
+                  className={`text-sm w-full text-left ${isActive ? 'text-[#DB4444] font-semibold' : 'text-gray-500 hover:text-[#DB4444]'}`}
+                >
+                  {cat}
+                </button>
+              </li>
+            )
+          })}
         </ul>
         <button className="text-sm text-[#DB4444] mt-3 hover:underline">See all</button>
       </Section>
@@ -111,7 +133,12 @@ export default function ProductsSidebar({ filters, onFiltersChange }: SidebarPro
         <ul className="flex flex-col gap-3">
           {BRANDS.map(brand => (
             <li key={brand} className="flex items-center gap-2.5">
-              <Checkbox id={`brand-${brand}`} className="border-gray-300 data-[state=checked]:bg-[#DB4444] data-[state=checked]:border-[#DB4444]" />
+              <Checkbox
+                id={`brand-${brand}`}
+                checked={filters.brands.includes(brand)}
+                onCheckedChange={() => handleBrandChange(brand)}
+                className="border-gray-300 data-[state=checked]:bg-[#DB4444] data-[state=checked]:border-[#DB4444]"
+              />
               <Label htmlFor={`brand-${brand}`} className="text-sm text-gray-600 cursor-pointer font-normal">{brand}</Label>
             </li>
           ))}
@@ -124,7 +151,12 @@ export default function ProductsSidebar({ filters, onFiltersChange }: SidebarPro
         <ul className="flex flex-col gap-3">
           {FEATURES.map(f => (
             <li key={f} className="flex items-center gap-2.5">
-              <Checkbox id={`feature-${f}`} className="border-gray-300 data-[state=checked]:bg-[#DB4444] data-[state=checked]:border-[#DB4444]" />
+              <Checkbox
+                id={`feature-${f}`}
+                checked={filters.features.includes(f)}
+                onCheckedChange={() => handleFeatureChange(f)}
+                className="border-gray-300 data-[state=checked]:bg-[#DB4444] data-[state=checked]:border-[#DB4444]"
+              />
               <Label htmlFor={`feature-${f}`} className="text-sm text-gray-600 cursor-pointer font-normal">{f}</Label>
             </li>
           ))}

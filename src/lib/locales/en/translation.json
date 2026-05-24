@@ -42,19 +42,7 @@
     "orders": "My Orders",
     "logout": "Log out"
   },
-  "section1": {
-    "search": "Search",
-    "loading": "Loading...",
-    "loadingCategories": "Loading categories...",
-    "error": "Error loading categories",
-
-    "banner": {
-      "subtitle": "iPhone 14 Series",
-      "titleLine1": "Up to 10% off",
-      "titleLine2": "Voucher",
-      "button": "Shop Now"
-    }
-  },
+  
    "browseCategory": {
     "label": "Categories",
     "title": "Browse By Category",
@@ -67,12 +55,12 @@
       "gaming": "Gaming"
     }
   },
-  "hero": {
+   "hero": {
     "subtitle": "iPhone 14 Series",
-    "titleLine1": "Up to 10% off",
-    "titleLine2": "Voucher",
+    "title": "Up to 10% off Voucher",
     "button": "Shop Now"
   },
+
   "today": "Today's",
   "flashSales": "Flash Sales",
   "section4": {
@@ -275,11 +263,6 @@
     "buy": "Buy Now"
   },
 
-  "hero": {
-    "series": "iPhone 14 Series",
-    "discount": "Up to 10% off Voucher",
-    "shop": "Shop Now"
-  },
   
   "account": {
     "breadcrumbHome": "Home",
@@ -328,6 +311,19 @@
 
     "placeholder": {
       "comingSoon": "content coming soon."
+    }
+  },
+  "section1": {
+    "search": "Search categories...",
+    "loading": "Loading...",
+    "loadingCategories": "Loading categories...",
+    "error": "Something went wrong",
+
+    "banner": {
+      "subtitle": "iPhone 14 Series",
+      "titleLine1": "Up to 10%",
+      "titleLine2": "off Voucher",
+      "button": "Shop Now"
     }
   }
 

@@ -35,8 +35,8 @@ const HeroSlide = () => {
             </span>
           </div>
 
-          <h1 className="text-4xl sm:text-6xl font-bold leading-[1.1] mb-8">
-            {t("hero.titleLine1")} <br /> {t("hero.titleLine2")}
+          <h1 className="text-3xl sm:text-6xl font-bold leading-[1.1] mb-8">
+            {t("hero.title")}
           </h1>
 
           <button className="group flex items-center gap-3 border-b border-white/30 pb-1 hover:border-white transition-all duration-300">

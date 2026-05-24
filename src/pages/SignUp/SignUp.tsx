@@ -1,10 +1,20 @@
-import React, { memo } from 'react'
+import { memo } from 'react'
 import { Button } from '../../components/ui/button'
 import InputLogin from '../../components/InputLogin/InputLogin'
 import { useNavigate, Link } from 'react-router-dom'
 import { axiosRequest, SaveToken } from '../../utils/token'
 import { Formik, Form } from 'formik'
 import * as Yup from 'yup'
+
+interface LoginValues {
+  userName: string
+  password: string
+}
+
+interface LoginResponse {
+  statusCode: number
+  data: string
+}
 
 const validationSchema = Yup.object({
   userName: Yup.string()
@@ -19,15 +29,24 @@ const validationSchema = Yup.object({
 export default memo(function SignUp() {
   const navigate = useNavigate()
 
-  async function login(values: any) {
+  async function login(values: LoginValues) {
     try {
-      const { data } = await axiosRequest.post(
+      const { data } = await axiosRequest.post<LoginResponse>(
         "Account/login",
         values
       )
 
-      if (data.statusCode === 200 && data.statusCode < 300) {
+      if (data.statusCode >= 200 && data.statusCode < 300) {
         SaveToken(data.data)
+        localStorage.setItem(
+          'user_profile',
+          JSON.stringify({
+            firstName: values.userName.split('@')[0] || 'User',
+            lastName: '',
+            email: values.userName,
+            streetAddress: '',
+          })
+        )
         navigate("/")
       }
     } catch (error) {
@@ -86,7 +105,7 @@ export default memo(function SignUp() {
                 Don’t have an account?{" "}
 
                 <span className='underline font-medium hover:text-[#DB4444] transition'>
-                  <Link to="/create-account">
+                  <Link to="/signup">
                     Create Account
                   </Link>
                 </span>

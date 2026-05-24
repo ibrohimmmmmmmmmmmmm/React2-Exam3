@@ -1,9 +1,11 @@
 import React, { useEffect, useState, useMemo } from 'react'
 import axios from 'axios'
+import { useParams } from 'react-router-dom'
 import Loading from '../../components/Loading/Loading'
 import ProductsSidebar from './SidebarProducts'
 import { Heart, Eye } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
+import { useAppSelector } from '../../app/hooks'
 
 type Product = {
   id: number
@@ -16,43 +18,70 @@ type Product = {
   categoryId?: number
   categoryName?: string
   brandId?: number
+  brandName?: string
+  condition?: string
+  features?: string[]
+}
+
+interface ProductResponse {
+  data: {
+    products: Product[]
+  }
 }
 
 type Filters = {
   category: string | null
+  categoryId: number | null
   brands: string[]
   priceRange: [number, number]
   condition: string
   ratings: number[]
+  features: string[]
 }
 
 export default function ProductsCatalog() {
   const { t } = useTranslation()
 
+  const { id: categoryRouteId } = useParams<{ id?: string }>()
+  const selectedCategoryId = useAppSelector((state) => state.category.selectedCategoryId)
   const [products, setProducts] = useState<Product[]>([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [sort, setSort] = useState<string>('popular')
   const [filters, setFilters] = useState<Filters>({
     category: null,
+    categoryId: null,
     brands: [],
     priceRange: [0, 999999],
     condition: 'any',
     ratings: [],
+    features: [],
   })
+
+  useEffect(() => {
+    const routeId = categoryRouteId ? Number(categoryRouteId) : null
+    const effectiveCategoryId = routeId !== null && !Number.isNaN(routeId) ? routeId : selectedCategoryId
+
+    setFilters((prev) => ({
+      ...prev,
+      categoryId: effectiveCategoryId,
+      category: routeId !== null ? null : prev.category,
+    }))
+  }, [categoryRouteId, selectedCategoryId])
 
   useEffect(() => {
     const fetchProducts = async () => {
       setLoading(true)
       setError(null)
       try {
-        const resp = await axios.get<any>(
+        const resp = await axios.get<ProductResponse>(
           `https://fastcard-1-o23z.onrender.com/api/Product/get-products`
         )
         const data = resp.data?.data?.products ?? []
         setProducts(data)
-      } catch (err: any) {
-        setError(err?.message || 'Failed to load products')
+      } catch (err: unknown) {
+        const message = err instanceof Error ? err.message : 'Failed to load products'
+        setError(message)
       } finally {
         setLoading(false)
       }
@@ -69,6 +98,34 @@ export default function ProductsCatalog() {
         (p.price ?? 0) >= filters.priceRange[0] &&
         (p.price ?? 0) <= filters.priceRange[1]
     )
+
+    if (filters.categoryId !== null) {
+      result = result.filter((p) => p.categoryId === filters.categoryId)
+    } else if (filters.category) {
+      result = result.filter((p) =>
+        p.categoryName?.toLowerCase().includes(filters.category!.toLowerCase())
+      )
+    }
+
+    if (filters.brands.length > 0) {
+      result = result.filter((p) =>
+        filters.brands.includes(p.brandName ?? String(p.brandId ?? ''))
+      )
+    }
+
+    if (filters.condition !== 'any') {
+      result = result.filter(
+        (p) => (p.condition ?? 'any').toLowerCase() === filters.condition.toLowerCase()
+      )
+    }
+
+    if (filters.features.length > 0) {
+      result = result.filter((p) =>
+        filters.features.every((feature) =>
+          (p.features ?? []).includes(feature)
+        )
+      )
+    }
 
     if (filters.ratings.length > 0) {
       result = result.filter((p) =>
@@ -88,6 +145,13 @@ export default function ProductsCatalog() {
 
     return result
   }, [products, filters, sort])
+
+  const selectedCategoryName = useMemo(() => {
+    if (filters.categoryId !== null) {
+      return products.find((p) => p.categoryId === filters.categoryId)?.categoryName ?? null
+    }
+    return filters.category
+  }, [filters.categoryId, filters.category, products])
 
   const handleFiltersChange = (newFilters: Filters) => {
     setFilters(newFilters)
@@ -124,8 +188,12 @@ export default function ProductsCatalog() {
       </div>
 
       {/* Main Layout */}
-      <div className='flex gap-8 py-15 px-25'>
-        <ProductsSidebar filters={filters} onFiltersChange={handleFiltersChange} />
+      <div className='flex gap-6 py-10 px-8'>
+        <ProductsSidebar
+          filters={filters}
+          onFiltersChange={handleFiltersChange}
+          selectedCategoryName={selectedCategoryName ?? undefined}
+        />
 
         <div className='flex-1'>
 

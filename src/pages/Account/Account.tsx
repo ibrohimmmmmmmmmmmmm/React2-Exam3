@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
@@ -11,6 +11,34 @@ interface ProfileForm {
   currentPassword: string
   newPassword: string
   confirmNewPassword: string
+}
+
+const defaultProfile: ProfileForm = {
+  firstName: 'Anna',
+  lastName: 'Petrova',
+  email: 'anna.petrov@example.com',
+  streetAddress: '123 Main St, Kyiv',
+  currentPassword: '',
+  newPassword: '',
+  confirmNewPassword: '',
+}
+
+const loadStoredProfile = (): ProfileForm => {
+  const saved = localStorage.getItem('user_profile')
+  if (!saved) return defaultProfile
+
+  try {
+    const parsed = JSON.parse(saved) as Partial<ProfileForm>
+    return {
+      ...defaultProfile,
+      ...parsed,
+      currentPassword: '',
+      newPassword: '',
+      confirmNewPassword: '',
+    }
+  } catch {
+    return defaultProfile
+  }
 }
 
 interface FormErrors {
@@ -136,15 +164,7 @@ export default function MyAccount() {
   const [saving, setSaving] = useState(false)
   const [saveSuccess, setSaveSuccess] = useState(false)
 
-  const [form, setForm] = useState<ProfileForm>({
-    firstName: '',
-    lastName: '',
-    email: '',
-    streetAddress: '',
-    currentPassword: '',
-    newPassword: '',
-    confirmNewPassword: '',
-  })
+  const [form, setForm] = useState<ProfileForm>(loadStoredProfile())
 
   const [errors, setErrors] = useState<FormErrors>({})
 
@@ -189,20 +209,25 @@ export default function MyAccount() {
     if (!validate()) return
     setSaving(true)
     await new Promise((res) => setTimeout(res, 800))
+    localStorage.setItem(
+      'user_profile',
+      JSON.stringify({
+        firstName: form.firstName,
+        lastName: form.lastName,
+        email: form.email,
+        streetAddress: form.streetAddress,
+      })
+    )
     setSaving(false)
     setSaveSuccess(true)
   }
 
+  useEffect(() => {
+    setForm(loadStoredProfile())
+  }, [])
+
   const handleCancel = () => {
-    setForm({
-      firstName: '',
-      lastName: '',
-      email: '',
-      streetAddress: '',
-      currentPassword: '',
-      newPassword: '',
-      confirmNewPassword: '',
-    })
+    setForm(loadStoredProfile())
     setErrors({})
     setSaveSuccess(false)
   }

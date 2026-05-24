@@ -6,6 +6,18 @@ import * as Yup from 'yup'
 import { toast } from 'sonner'
 import { SonnerTypes } from './sonnerCheckout'
 
+interface CheckoutForm {
+  firstName: string
+  lastName: string
+  streetAddress: string
+  apartment: string
+  townCity: string
+  phoneNumber: string
+  emailAddress: string
+  saveInfo: boolean
+  paymentMethod: string
+}
+
 const validationSchema = Yup.object().shape({
   firstName: Yup.string().required('First name is required'),
   lastName: Yup.string().required('Last name is required'),
@@ -42,7 +54,7 @@ export default function Checkout() {
   const shipping = 0
   const total = subtotal - discount
 
-  const handleSubmit = async (values: any) => {
+  const handleSubmit = async (values: CheckoutForm) => {
     console.log('Form submitted:', values)
 
     toast.success('Order placed successfully!')
