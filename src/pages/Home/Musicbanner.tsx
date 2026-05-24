@@ -5,7 +5,7 @@ const TARGET_SECONDS = 5 * 86400 + 23 * 3600 + 59 * 60 + 35
 
 function TimeUnit({ value, label }: { value: string; label: string }) {
   return (
-    <div className='flex flex-col items-center justify-center w-[52px] h-[52px] sm:w-[60px] sm:h-[60px] rounded-full border border-white/25 bg-white/10'>
+    <div className='flex flex-col items-center justify-center w-[52px] h-[52px] sm:w-[60px] sm:h-[60px] rounded-full border border-white/25 bg-white/10 dark:bg-black/20'>
       <span className='text-white text-sm sm:text-base font-bold leading-none'>{value}</span>
       <span className='text-white/50 text-[9px] sm:text-[10px] mt-0.5'>{label}</span>
     </div>
@@ -27,8 +27,8 @@ export default function MusicBanner() {
   const seconds = remaining % 60
 
   return (
-    <div className='px-4 sm:px-6 md:px-[100px] py-6'>
-      <div className='relative w-full rounded-xl overflow-hidden bg-[#0d0d0d]'>
+    <div className='px-4 sm:px-6 md:px-[100px] py-6 bg-white dark:bg-gray-950 transition-colors duration-300'>
+      <div className='relative w-full rounded-xl overflow-hidden bg-[#0d0d0d] dark:bg-gray-900'>
 
         {/* Glow blob behind speaker */}
         <div className='absolute right-0 top-0 bottom-0 w-[60%] bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.04)_0%,transparent_70%)] pointer-events-none' />
@@ -48,7 +48,6 @@ export default function MusicBanner() {
           <button className='w-fit bg-[#00FF66] hover:bg-[#00dd55] text-black font-bold text-sm px-8 py-3 rounded mb-6 transition-colors duration-200'>
             Buy Now!
           </button>
-          {/* Speaker below on mobile */}
           <div className='flex justify-center'>
             <img
               src={SPEAKER_IMG}

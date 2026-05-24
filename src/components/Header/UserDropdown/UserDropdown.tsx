@@ -21,13 +21,10 @@ export default memo(function UserDropdown() {
   const navigate = useNavigate()
 
   function logout() {
-    // remove token
     RemoveToken()
 
-    // redirect
     navigate("/signup2")
 
-    // refresh app
     window.location.reload()
   }
 
@@ -37,33 +34,153 @@ export default memo(function UserDropdown() {
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <button
-              className="relative p-2 rounded-full hover:bg-neutral-100 transition"
+              className="
+                relative p-2.5 rounded-full
+
+                text-black
+                dark:text-white
+
+                bg-transparent
+                hover:bg-neutral-100
+                dark:hover:bg-white/10
+
+                border border-transparent
+                dark:border-white/5
+
+                transition-all duration-300
+
+                hover:scale-105
+                active:scale-95
+              "
               aria-label="User"
             >
-              <User size={20} strokeWidth={1.8} />
+              <User
+                size={20}
+                strokeWidth={1.9}
+              />
             </button>
           </DropdownMenuTrigger>
 
-          <DropdownMenuContent align="end">
+          <DropdownMenuContent
+            align="end"
+            className="
+              w-[220px]
+
+              rounded-2xl
+              border border-neutral-200
+              dark:border-white/10
+
+              bg-white/95
+              dark:bg-[#111116]/95
+
+              backdrop-blur-xl
+
+              shadow-xl
+              dark:shadow-[0_10px_40px_rgba(0,0,0,0.55)]
+
+              p-2
+            "
+          >
+            <div
+              className="
+                px-3 py-2 mb-1
+                rounded-xl
+
+                bg-neutral-50
+                dark:bg-white/5
+
+                border border-neutral-100
+                dark:border-white/5
+              "
+            >
+              <p
+                className="
+                  text-[13px]
+                  text-neutral-500
+                  dark:text-neutral-400
+                "
+              >
+                Welcome back
+              </p>
+
+              <h4
+                className="
+                  text-sm font-semibold
+                  text-black
+                  dark:text-white
+                "
+              >
+                FastCart User
+              </h4>
+            </div>
+
             <DropdownMenuItem
               onSelect={() => navigate("/account")}
+              className="
+                h-11 rounded-xl
+
+                text-black
+                dark:text-white
+
+                cursor-pointer
+
+                hover:!bg-neutral-100
+                dark:hover:!bg-white/10
+
+                focus:!bg-neutral-100
+                dark:focus:!bg-white/10
+
+                transition-all
+              "
             >
-              <UserIcon className="mr-2 h-4 w-4" />
+              <UserIcon className="mr-3 h-4 w-4" />
               Account
             </DropdownMenuItem>
 
-            <DropdownMenuItem>
-              <CreditCardIcon className="mr-2 h-4 w-4" />
+            <DropdownMenuItem
+              className="
+                h-11 rounded-xl
+
+                text-black
+                dark:text-white
+
+                cursor-pointer
+
+                hover:!bg-neutral-100
+                dark:hover:!bg-white/10
+
+                focus:!bg-neutral-100
+                dark:focus:!bg-white/10
+
+                transition-all
+              "
+            >
+              <CreditCardIcon className="mr-3 h-4 w-4" />
               My order
             </DropdownMenuItem>
 
-            <DropdownMenuSeparator />
+            <DropdownMenuSeparator className="bg-neutral-200 dark:bg-white/10 my-2" />
 
             <DropdownMenuItem
-              variant="destructive"
               onClick={logout}
+              className="
+                h-11 rounded-xl
+
+                text-red-500
+                dark:text-red-400
+
+                cursor-pointer
+
+                hover:!bg-red-50
+                dark:hover:!bg-red-500/10
+
+                focus:!bg-red-50
+                dark:focus:!bg-red-500/10
+
+                transition-all
+              "
             >
-              <LogOutIcon className="mr-2 h-4 w-4" />
+              <LogOutIcon className="mr-3 h-4 w-4" />
               Log out
             </DropdownMenuItem>
           </DropdownMenuContent>

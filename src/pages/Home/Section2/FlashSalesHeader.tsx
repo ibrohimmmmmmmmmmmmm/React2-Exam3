@@ -28,8 +28,7 @@ export default memo(function FlashSalesHeader({
   const seconds = remaining % 60
 
   return (
-    <div className='flex flex-col sm:flex-row sm:items-center sm:justify-between
-                    px-4 sm:px-16 py-4 gap-4 sm:gap-0'>
+    <div className='flex flex-col sm:flex-row sm:items-center sm:justify-between px-4 sm:px-16 py-4 gap-4 sm:gap-0 bg-white dark:bg-gray-950 transition-colors duration-300'>
 
       {/* Left: label + title + countdown */}
       <div className='flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-10'>
@@ -40,11 +39,11 @@ export default memo(function FlashSalesHeader({
             <div className='w-[12px] h-[32px] sm:w-[14px] sm:h-[36px] bg-[#DB4444] rounded' />
             <span className='text-[#DB4444] font-medium text-sm sm:text-[15px]'>Today's</span>
           </div>
-          <h2 className='text-xl sm:text-[26px] font-semibold'>Flash Sales</h2>
+          <h2 className='text-xl sm:text-[26px] font-semibold dark:text-white'>Flash Sales</h2>
         </div>
 
         {/* Countdown */}
-        <div className='flex items-center gap-1'>
+        <div className='flex items-center gap-1 dark:text-white'>
           <TimeUnit label='Days'    value={pad(days)}    />
           <Colon />
           <TimeUnit label='Hours'   value={pad(hours)}   />
@@ -55,17 +54,17 @@ export default memo(function FlashSalesHeader({
         </div>
       </div>
 
-      {/* Right: arrows — hidden on mobile, visible on desktop */}
+      {/* Right: arrows */}
       <div className='hidden sm:flex items-center gap-2'>
         <button
           onClick={onPrev}
-          className='w-[40px] h-[40px] rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-100 transition'
+          className='w-[40px] h-[40px] rounded-full border border-gray-300 dark:border-gray-700 flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-800 dark:text-white transition'
         >
           <ArrowLeft size={18} />
         </button>
         <button
           onClick={onNext}
-          className='w-[40px] h-[40px] rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-100 transition'
+          className='w-[40px] h-[40px] rounded-full border border-gray-300 dark:border-gray-700 flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-800 dark:text-white transition'
         >
           <ArrowRight size={18} />
         </button>
@@ -77,7 +76,7 @@ export default memo(function FlashSalesHeader({
 function TimeUnit({ label, value }: { label: string; value: string }) {
   return (
     <div className='flex flex-col items-center'>
-      <span className='text-[10px] sm:text-[11px] text-gray-500'>{label}</span>
+      <span className='text-[10px] sm:text-[11px] text-gray-500 dark:text-gray-400'>{label}</span>
       <span className='text-xl sm:text-[28px] font-semibold leading-tight'>{value}</span>
     </div>
   )

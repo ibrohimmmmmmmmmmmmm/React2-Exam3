@@ -1,16 +1,25 @@
 import React, { useRef, useState } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import type { Swiper as SwiperType } from 'swiper'
-import { ArrowLeft, ArrowRight, Smartphone, Monitor, Watch, Camera, Headphones, Gamepad2 } from 'lucide-react'
+import {
+  ArrowLeft,
+  ArrowRight,
+  Smartphone,
+  Monitor,
+  Watch,
+  Camera,
+  Headphones,
+  Gamepad2
+} from 'lucide-react'
 import 'swiper/css'
 
 const categories = [
-  { label: 'Phones',      Icon: Smartphone },
-  { label: 'Computers',   Icon: Monitor },
-  { label: 'SmartWatch',  Icon: Watch },
-  { label: 'Camera',      Icon: Camera },
-  { label: 'HeadPhones',  Icon: Headphones },
-  { label: 'Gaming',      Icon: Gamepad2 },
+  { label: 'Phones', Icon: Smartphone },
+  { label: 'Computers', Icon: Monitor },
+  { label: 'SmartWatch', Icon: Watch },
+  { label: 'Camera', Icon: Camera },
+  { label: 'HeadPhones', Icon: Headphones },
+  { label: 'Gaming', Icon: Gamepad2 },
 ]
 
 export default function BrowseByCategory() {
@@ -22,23 +31,41 @@ export default function BrowseByCategory() {
 
       {/* Top label */}
       <div className='flex items-center gap-2 mb-3'>
-        <div className='w-[14px] h-[36px] bg-[#DB4444] rounded' />
-        <span className='text-[#DB4444] font-medium text-[15px]'>Categories</span>
+        <div className='w-[14px] h-[36px] bg-[#DB4444]' />
+        <span className='text-[#DB4444] font-medium text-[15px]'>
+          Categories
+        </span>
       </div>
 
       {/* Title row + arrows */}
       <div className='flex items-center justify-between mb-8'>
-        <h2 className='text-2xl sm:text-[28px] font-bold text-gray-900'>Browse By Category</h2>
+        <h2 className='text-2xl sm:text-[28px] font-bold text-gray-900 dark:text-white'>
+          Browse By Category
+        </h2>
+
         <div className='flex items-center gap-2'>
           <button
             onClick={() => swiperRef.current?.slidePrev()}
-            className='w-10 h-10 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-100 transition'
+            className='
+              w-10 h-10 rounded-full border border-gray-300 dark:border-neutral-700
+              flex items-center justify-center
+              hover:bg-gray-100 dark:hover:bg-neutral-800
+              transition
+              text-gray-700 dark:text-neutral-200
+            '
           >
             <ArrowLeft size={18} />
           </button>
+
           <button
             onClick={() => swiperRef.current?.slideNext()}
-            className='w-10 h-10 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-100 transition'
+            className='
+              w-10 h-10 rounded-full border border-gray-300 dark:border-neutral-700
+              flex items-center justify-center
+              hover:bg-gray-100 dark:hover:bg-neutral-800
+              transition
+              text-gray-700 dark:text-neutral-200
+            '
           >
             <ArrowRight size={18} />
           </button>
@@ -50,24 +77,30 @@ export default function BrowseByCategory() {
         onSwiper={(s) => { swiperRef.current = s }}
         spaceBetween={16}
         breakpoints={{
-          0:    { slidesPerView: 2.2 },
-          480:  { slidesPerView: 3 },
-          768:  { slidesPerView: 4 },
+          0: { slidesPerView: 2.2 },
+          480: { slidesPerView: 3 },
+          768: { slidesPerView: 4 },
           1024: { slidesPerView: 5 },
           1280: { slidesPerView: 6 },
         }}
       >
         {categories.map(({ label, Icon }, i) => {
           const isActive = activeIndex === i
+
           return (
             <SwiperSlide key={label}>
               <button
                 onClick={() => setActiveIndex(isActive ? null : i)}
-                className={`w-full aspect-square flex flex-col items-center justify-center gap-3 rounded border transition-all duration-200 cursor-pointer
-                  ${isActive
-                    ? 'bg-[#DB4444] border-[#DB4444] text-white'
-                    : 'bg-white border-gray-300 text-gray-700 hover:bg-[#DB4444] hover:border-[#DB4444] hover:text-white'
-                  }`}
+                className={`
+                  w-full aspect-square flex flex-col items-center justify-center gap-3
+                  rounded border transition-all duration-200 cursor-pointer
+
+                  ${
+                    isActive
+                      ? 'bg-[#DB4444] border-[#DB4444] text-white'
+                      : 'bg-white dark:bg-neutral-900 border-gray-300 dark:border-neutral-700 text-gray-700 dark:text-neutral-300 hover:bg-[#DB4444] hover:border-[#DB4444] hover:text-white'
+                  }
+                `}
               >
                 <Icon size={40} strokeWidth={1.3} />
                 <span className='text-sm font-medium'>{label}</span>
@@ -78,7 +111,7 @@ export default function BrowseByCategory() {
       </Swiper>
 
       {/* Divider */}
-      <div className='mt-10 border-t border-gray-200' />
+      <div className='mt-10 border-t border-gray-200 dark:border-neutral-800' />
     </div>
   )
 }

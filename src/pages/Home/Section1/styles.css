@@ -7,12 +7,29 @@
   display: flex;
 }
 
+/* Pagination base */
 .heroSwiper .swiper-pagination-bullet {
   background: white;
   opacity: 0.5;
+  transition: all 0.3s ease;
+  transform: scale(1);
 }
 
+/* Active bullet (light mode) */
 .heroSwiper .swiper-pagination-bullet-active {
   background: red;
   opacity: 1;
+  transform: scale(1.2);
+}
+
+/* 🌙 DARK MODE overrides */
+.dark .heroSwiper .swiper-pagination-bullet {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.dark .heroSwiper .swiper-pagination-bullet-active {
+  background: #ef4444; /* red-500 */
+  opacity: 1;
+  transform: scale(1.25);
+  box-shadow: 0 0 10px rgba(239, 68, 68, 0.4);
 }
