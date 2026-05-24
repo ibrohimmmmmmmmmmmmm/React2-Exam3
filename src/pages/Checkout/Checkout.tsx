@@ -290,7 +290,7 @@ export default function Checkout() {
               <div className='flex items-center justify-between'>
                 <span className='text-gray-500'>Shipping</span>
                 <span className='font-semibold text-green-600'>
-                  {shipping === 0 ? 'Free' : `$${shipping.toFixed(2)}`}
+                  {Number(shipping) === 0 ? 'Free' : `$${Number(shipping).toFixed(2)}`}
                 </span>
               </div>
 

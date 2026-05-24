@@ -8,8 +8,6 @@ import { useAppDispatch, useAppSelector } from '../../../app/hooks'
 import { axiosRequest } from '../../../utils/token'
 import { addToCart } from '../../../features/cartSlice'
 import { toggleWishlist } from '../../../features/wishlistSlice'
-import { useTranslation } from 'react-i18next'
-import { t } from 'i18next'
 
 type Product = {
   id: number
@@ -22,7 +20,6 @@ type Product = {
 }
 
 function Stars({ rating = 0 }: { rating?: number }) {
-  const {t} = useTranslation()
   return (
     <div className='flex gap-0.5'>
       {[1, 2, 3, 4, 5].map((i) => (
