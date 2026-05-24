@@ -1,4 +1,4 @@
-import React from 'react'
+// React default import removed (not needed with new JSX transform)
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
 import { updateQuantity, removeFromCart, clearCart } from '../../features/cartSlice'
 import { useNavigate } from 'react-router-dom'

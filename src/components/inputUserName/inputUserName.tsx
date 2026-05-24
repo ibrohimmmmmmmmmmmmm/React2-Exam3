@@ -5,6 +5,7 @@ import {
 import { Input } from "@/components/ui/input"
 
 import { ErrorMessage } from "formik"
+import type { ChangeEvent } from 'react'
 
 export function InputUserName({ forms, setForms }: any) {
   return (
@@ -17,7 +18,7 @@ export function InputUserName({ forms, setForms }: any) {
           id="input-field-username"
           type="text"
           value={forms.userName}
-          onChange={(e) =>
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
             setForms("userName", e.target.value)
           }
           placeholder="Enter your username"
@@ -37,7 +38,7 @@ export function InputUserName({ forms, setForms }: any) {
           id="fieldgroup-email"
           type="email"
           value={forms.email}
-          onChange={(e) =>
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
             setForms("email", e.target.value)
           }
           placeholder="Name@gmail.com"
@@ -57,7 +58,7 @@ export function InputUserName({ forms, setForms }: any) {
           id="fieldgroup-telephone"
           type="text"
           value={forms.phoneNumber}
-          onChange={(e) =>
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
             setForms("phoneNumber", e.target.value)
           }
           placeholder="+992 00 000 00 00"
@@ -77,7 +78,7 @@ export function InputUserName({ forms, setForms }: any) {
           id="fieldgroup-password"
           type="password"
           value={forms.password}
-          onChange={(e) =>
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
             setForms("password", e.target.value)
           }
           placeholder="Password"
@@ -97,7 +98,7 @@ export function InputUserName({ forms, setForms }: any) {
           id="fieldgroup-confirmPassword"
           type="password"
           value={forms.confirmPassword}
-          onChange={(e) =>
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
             setForms("confirmPassword", e.target.value)
           }
           placeholder="Confirm Password"

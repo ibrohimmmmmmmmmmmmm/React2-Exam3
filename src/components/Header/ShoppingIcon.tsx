@@ -1,5 +1,5 @@
 import { ShoppingCart } from 'lucide-react'
-import React, { memo } from 'react'
+import { memo } from 'react'
 import { useAppSelector } from '../../app/hooks'
 import { useNavigate, useLocation } from 'react-router-dom'
 

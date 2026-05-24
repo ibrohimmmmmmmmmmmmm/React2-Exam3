@@ -1,4 +1,4 @@
-import React, { memo, useState } from "react";
+import { memo, useState } from "react";
 import { Link } from "react-router-dom";
 import { Phone, Mail } from "lucide-react";
 import { Toaster, toast } from "sonner";

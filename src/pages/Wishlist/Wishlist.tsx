@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Trash2, ShoppingCart, Eye, Heart } from 'lucide-react'
 import { Link } from 'react-router-dom'
@@ -128,7 +128,7 @@ export default function Wishlist() {
                   </button>
 
                   <img
-                    src={p.image}
+                      src={p.image ?? undefined}
                     alt={p.productName}
                     className="max-h-full max-w-full object-contain group-hover:scale-110 transition duration-500"
                   />
@@ -198,7 +198,7 @@ export default function Wishlist() {
                     </button>
 
                     <img
-                      src={p.image}
+                      src={p.image ?? undefined}
                       alt={p.productName}
                       className="max-h-full max-w-full object-contain group-hover:scale-110 transition"
                     />

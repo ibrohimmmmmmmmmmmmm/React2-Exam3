@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react'
+import { memo, useState } from 'react'
 import { Field } from '../ui/field'
 import { Input } from '../ui/input'
 import { ErrorMessage } from 'formik'

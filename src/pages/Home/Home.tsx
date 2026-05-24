@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import { memo } from 'react'
 import Section1 from './Section1/Section1'
 import Section2 from './Section2/Section2'
 import BrowseByCategory from './Browsebycategory/Browsebycategory '

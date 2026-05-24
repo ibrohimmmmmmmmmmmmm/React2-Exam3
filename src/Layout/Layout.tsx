@@ -1,4 +1,4 @@
-import React from 'react'
+// React default import removed (not needed with new JSX transform)
 import Header from '../components/Header/Header'
 import Footer from '../components/Footer/Footer'
 import { Outlet } from "react-router-dom";

@@ -70,7 +70,9 @@ export default memo(function Footer() {
             </h3>
 
             <ul className="flex flex-col gap-3">
-              {t("footer.accountItems", { returnObjects: true }).map((item) => (
+              {(
+                t("footer.accountItems", { returnObjects: true }) as string[]
+              ).map((item) => (
                 <li
                   key={item}
                   className="text-[13px] text-neutral-400 hover:text-white transition-colors cursor-pointer"
@@ -88,7 +90,9 @@ export default memo(function Footer() {
             </h3>
 
             <ul className="flex flex-col gap-3">
-              {t("footer.quickItems", { returnObjects: true }).map((item) => (
+              {(
+                t("footer.quickItems", { returnObjects: true }) as string[]
+              ).map((item) => (
                 <li
                   key={item}
                   className="text-[13px] text-neutral-400 hover:text-white transition-colors cursor-pointer"

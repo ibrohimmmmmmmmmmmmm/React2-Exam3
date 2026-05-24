@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import { ChevronUp } from 'lucide-react'
 import { Checkbox } from '../../components/ui/checkbox';

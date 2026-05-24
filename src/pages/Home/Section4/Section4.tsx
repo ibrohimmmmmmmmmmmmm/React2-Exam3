@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import { memo } from 'react'
 import ProductCard from '../Section2/CartProductsSection2'
 
 const Section4 = memo(() => {

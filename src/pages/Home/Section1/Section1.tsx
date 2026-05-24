@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from 'react'
+import { memo, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Search, ChevronRight, ArrowRight } from 'lucide-react'
 import HeroSwiper from './Swiper'
@@ -71,8 +71,8 @@ export default memo(function Section1() {
                 onClick={() => handleCategoryClick(cat.id)}
                 className='
                   flex items-center  
-                  border border-gray-300 dark:border-neutral-700
-                  rounded-sm text-sm text-gray-700 dark:text-neutral-300
+                  border border-gray-300 py-1.5 px-3 dark:border-neutral-700
+                  rounded-sm text-sm text-gray-700 dark:text-neutral-300O
                   hover:border-[#DB4444] hover:text-[#DB4444]
                   dark:hover:border-[#DB4444] dark:hover:text-[#DB4444]
                   transition-colors

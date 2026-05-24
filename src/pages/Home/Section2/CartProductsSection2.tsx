@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState, useRef, useMemo } from 'react'
+import { memo, useEffect, useState, useRef, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Heart, Eye, ArrowLeft, ArrowRight } from 'lucide-react'
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -73,7 +73,7 @@ function ProductCard({ p, isWishlisted, onWishlist, onView, onCart }: ProductCar
 
         {p.image ? (
           <img
-            src={p.image}
+            src={p.image ?? undefined}
             alt={p.productName}
             className='max-h-[150px] sm:max-h-[170px] object-contain transition-transform duration-500 group-hover:scale-110'
           />

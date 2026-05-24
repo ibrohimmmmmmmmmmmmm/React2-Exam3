@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import Loading from '../../components/Loading/Loading'
@@ -35,7 +35,7 @@ export default function ProductDetail() {
   const wishlistItems = useAppSelector((state) => state.wishlist.items)
   const wishlistedIds = new Set(wishlistItems.map((item) => item.id))
 
-  const [product, setProduct] = useState<ProductDetail | null>(null)
+  const [product, setProduct] = useState<Product | null>(null)
   const [relatedProducts, setRelatedProducts] = useState<RelatedProduct[]>([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -431,7 +431,7 @@ export default function ProductDetail() {
                   <div className='relative h-64 bg-gray-100 overflow-hidden flex items-center justify-center p-5'>
                     {p.image ? (
                       <img
-                        src={p.image}
+                        src={p.image ?? undefined}
                         alt={p.productName}
                         className='max-h-full max-w-full object-contain group-hover:scale-110 transition-transform duration-300 cursor-pointer'
                         onClick={() =>
@@ -448,7 +448,7 @@ export default function ProductDetail() {
                       <button
                         onClick={(e) => {
                           e.preventDefault()
-                          dispatch(toggleWishlist(p as ProductDetail))
+                          dispatch(toggleWishlist(p as Product))
                         }}
                         className={`rounded-full p-3 shadow-lg transition-all duration-200 flex items-center justify-center cursor-pointer hover:scale-110 ${
                           relatedIsWishlisted

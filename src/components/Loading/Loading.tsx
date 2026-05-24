@@ -1,4 +1,4 @@
-import React, { useState, useEffect, memo } from "react";
+import { useState, useEffect, memo } from "react";
 
 export default memo(function Loading() {
   const [messageIndex, setMessageIndex] = useState(0);

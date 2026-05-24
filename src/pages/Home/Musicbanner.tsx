@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import SPEAKER_IMG from "../../assets/JBL_BOOMBOX_2_HERO_020_x1 (1) 1.png"
 import { useTranslation } from 'react-i18next'

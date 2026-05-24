@@ -1,4 +1,4 @@
-import React from 'react'
+// React default import removed (not needed with new JSX transform)
 import { Truck, Headphones, RotateCcw } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 

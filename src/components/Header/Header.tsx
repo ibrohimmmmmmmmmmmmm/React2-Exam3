@@ -34,7 +34,7 @@ const Header = memo(() => {
     return () => window.removeEventListener("scroll", fn);
   }, []);
 
-  const navClass = ({ isActive }) => `
+  const navClass = ({ isActive }: { isActive: boolean }) => `
     relative px-4 py-1.5 rounded-full
     text-[15px] font-medium
     transition-all duration-300
@@ -45,7 +45,7 @@ const Header = memo(() => {
     }
   `;
 
-  const mobileNavClass = ({ isActive }) => `
+  const mobileNavClass = ({ isActive }: { isActive: boolean }) => `
     px-5 py-4 text-[16px] font-medium border-b
     transition-all duration-300
     ${

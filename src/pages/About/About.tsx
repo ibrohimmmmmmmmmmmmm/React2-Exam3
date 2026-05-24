@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import { memo } from "react";
 import { Link } from "react-router-dom";
 import { Truck, Headphones, RotateCcw, Store, DollarSign, ShoppingBag, Wallet } from "lucide-react";
 import { Swiper, SwiperSlide } from "swiper/react";

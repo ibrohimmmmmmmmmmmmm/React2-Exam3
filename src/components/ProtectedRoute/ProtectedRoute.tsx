@@ -1,4 +1,4 @@
-import React from 'react';
+// React default import removed (not needed with new JSX transform)
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import Loading from '../Loading/Loading';

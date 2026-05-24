@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from 'react'
+import { useEffect, useState, useMemo } from 'react'
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
 import Loading from '../../components/Loading/Loading'
@@ -236,7 +236,7 @@ export default function ProductsCatalog() {
 
                         {p.image ? (
                           <img
-                            src={p.image}
+                            src={p.image ?? undefined}
                             alt={p.productName}
                             className='max-h-full max-w-full object-cover group-hover:scale-110 transition-transform duration-300'
                           />

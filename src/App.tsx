@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from "react";
+import { Suspense } from "react";
 
 import {
   createHashRouter,
