@@ -176,9 +176,9 @@ export default function ProductsCatalog() {
   }
 
   return (
-    <>
+    <div className="w-full">
       {/* Breadcrumb */}
-      <div className='mb-6 py-15 px-25'>
+      <div className='mb-6 py-8 px-4 md:px-25'>
         <p className='text-sm text-gray-600'>
           {t('productsCatalog.breadcrumb.home')} /{' '}
           <span className='text-gray-900 font-medium'>
@@ -188,14 +188,16 @@ export default function ProductsCatalog() {
       </div>
 
       {/* Main Layout */}
-      <div className='flex gap-6 py-10 px-8'>
-        <ProductsSidebar
-          filters={filters}
-          onFiltersChange={handleFiltersChange}
-          selectedCategoryName={selectedCategoryName ?? undefined}
-        />
+      <div className='flex flex-col lg:flex-row gap-6 py-5 px-4 md:px-8'>
+        <div className="w-full lg:w-[250px] flex-shrink-0">
+          <ProductsSidebar
+            filters={filters}
+            onFiltersChange={handleFiltersChange}
+            selectedCategoryName={selectedCategoryName ?? undefined}
+          />
+        </div>
 
-        <div className='flex-1'>
+        <div className='flex-1 w-full'>
 
           {/* Top Bar */}
           <div className='flex items-center justify-between mb-6'>
@@ -204,7 +206,7 @@ export default function ProductsCatalog() {
             <select
               value={sort}
               onChange={(e) => setSort(e.target.value)}
-              className='border border-gray-300 rounded px-4 py-2 text-sm text-gray-700 outline-none hover:border-gray-400'
+              className='border border-gray-300 rounded px-3 py-2 text-sm text-gray-700 outline-none hover:border-gray-400'
             >
               <option value='popular'>{t('productsCatalog.sort.popular')}</option>
               <option value='price-low'>{t('productsCatalog.sort.lowHigh')}</option>
@@ -218,9 +220,9 @@ export default function ProductsCatalog() {
 
           {!loading && !error && (
             <>
-              <div className='grid grid-cols-3 gap-6'>
+              <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6'>
                 {filteredProducts.length === 0 ? (
-                  <p className='col-span-3 text-center text-gray-500 py-8'>
+                  <p className='col-span-full text-center text-gray-500 py-8'>
                     {t('productsCatalog.empty')}
                   </p>
                 ) : (
@@ -246,12 +248,12 @@ export default function ProductsCatalog() {
                           </span>
                         )}
 
-                        <div className='absolute right-3 top-1/2 -translate-y-1/2 flex flex-col gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300'>
-                          <button className='bg-white rounded-full p-2.5 shadow-md hover:bg-red-500 hover:text-white transition-colors'>
-                            <Heart size={20} />
+                        <div className='absolute right-3 top-3 flex flex-col gap-2 opacity-100 lg:opacity-0 group-hover:opacity-100 transition-opacity duration-300'>
+                          <button className='bg-white rounded-full p-2 shadow-md hover:bg-red-500 hover:text-white transition-colors'>
+                            <Heart size={18} />
                           </button>
-                          <button className='bg-white rounded-full p-2.5 shadow-md hover:bg-blue-500 hover:text-white transition-colors'>
-                            <Eye size={20} />
+                          <button className='bg-white rounded-full p-2 shadow-md hover:bg-blue-500 hover:text-white transition-colors'>
+                            <Eye size={18} />
                           </button>
                         </div>
                       </div>
@@ -283,7 +285,7 @@ export default function ProductsCatalog() {
                         </div>
                       </div>
 
-                      <div className='px-4 pb-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300'>
+                      <div className='px-4 pb-4 opacity-100 lg:opacity-0 group-hover:opacity-100 transition-opacity duration-300'>
                         <button className='w-full bg-black text-white py-2 font-bold text-sm hover:bg-gray-800 transition-colors rounded'>
                           {t('productsCatalog.addToCart')}
                         </button>
@@ -296,7 +298,7 @@ export default function ProductsCatalog() {
 
               {filteredProducts.length > 0 && (
                 <div className='flex justify-center mt-10'>
-                  <button className='bg-red-500 hover:bg-red-600 text-white px-12 py-3 rounded font-semibold transition'>
+                  <button className='bg-red-500 hover:bg-red-600 text-white px-10 py-3 rounded font-semibold transition'>
                     {t('productsCatalog.more')}
                   </button>
                 </div>
@@ -305,6 +307,6 @@ export default function ProductsCatalog() {
           )}
         </div>
       </div>
-    </>
+    </div>
   )
 }

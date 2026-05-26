@@ -16,7 +16,7 @@ const HeartComp = memo(() => {
       to="/wishlist"
       aria-label="Wishlist"
       className="
-        relative hidden lg:flex
+        relative  lg:flex
         items-center justify-center
 
         p-2.5 rounded-full

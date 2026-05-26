@@ -29,7 +29,6 @@ const Header = memo(() => {
 
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 10);
-
     window.addEventListener("scroll", fn, { passive: true });
     return () => window.removeEventListener("scroll", fn);
   }, []);
@@ -80,7 +79,6 @@ const Header = memo(() => {
                 <ShoppingCart size={20} />
               </div>
 
-              {/* NAV */}
               <nav className="flex flex-col">
                 {navLinks.map((l) => {
                   if (
@@ -103,7 +101,6 @@ const Header = memo(() => {
                 })}
               </nav>
 
-              {/* MOBILE SETTINGS DROPDOWN */}
               <div className="px-5 py-4 border-t">
                 <details className="group">
                   <summary className="cursor-pointer list-none flex items-center justify-between text-neutral-600 dark:text-neutral-300 font-medium">
@@ -115,9 +112,7 @@ const Header = memo(() => {
 
                   <div className="mt-3 flex flex-col gap-3">
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-neutral-500">
-                        Language
-                      </span>
+                      <span className="text-sm text-neutral-500">Language</span>
                       <LanguageSwitcher />
                     </div>
 
@@ -154,10 +149,10 @@ const Header = memo(() => {
           })}
         </nav>
 
-        {/* RIGHT */}
-        <div className="flex items-center gap-2">
+        {/* RIGHT (FIXED MOBILE VISIBILITY) */}
+        <div className="flex items-center gap-2 md:gap-4 min-w-fit">
 
-          {/* SEARCH */}
+          {/* SEARCH - Hidden on small mobile */}
           <div className="relative hidden md:block">
             <input
               placeholder={t("header.searchPlaceholder")}
@@ -169,14 +164,14 @@ const Header = memo(() => {
             />
           </div>
 
-          {/* SWITCHERS (DESKTOP ONLY) */}
+          {/* SWITCHERS - Hidden on small mobile */}
           <div className="hidden md:grid grid-cols-2 gap-2 p-1.5 rounded-2xl bg-neutral-50 dark:bg-[#121218]">
             <LanguageSwitcher />
             <ThemeSwitcher />
           </div>
 
-          {/* ICONS */}
-          <div className="flex items-center gap-1">
+          {/* ICONS - Now explicitly visible on all screen sizes */}
+          <div className="flex items-center  md:gap-4 flex-shrink-0">
             <HeartComp />
             <ShoppingIcon />
             <UserDropdown />
